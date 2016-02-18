@@ -1,0 +1,7 @@
+<form method="post" class="post_form">
+    {% csrf_token %}
+    <table class="table table-hover">
+        {{ form.as_table }}
+    </table>
+    <button type="submit">SAVE</button>
+</form>

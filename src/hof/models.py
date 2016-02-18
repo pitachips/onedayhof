@@ -50,6 +50,7 @@ class Store(models.Model):
 
     menu = models.TextField(blank=True, default='')
     rating = models.PositiveSmallIntegerField(blank=True, default=0)
+    n_review = models.PositiveSmallIntegerField(default=0, blank=True)
     description = models.TextField(blank=True, default='')
 
     #태그용. 1개씩밖에 선택 못함.
