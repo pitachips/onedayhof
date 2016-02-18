@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Store, StoreImage, Review, ReviewImage
 
-# Register your models here.
+admin.site.register(Store)
+admin.site.register(StoreImage)
+admin.site.register(Review)
+admin.site.register(ReviewImage)

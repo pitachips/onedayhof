@@ -13,7 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
+from django.conf import settings
 from django.conf.urls import url
+from django.conf.urls.static import static
+
 from django.contrib import admin
 
 from hof import views as hof_views
@@ -30,3 +34,7 @@ urlpatterns = [
     # url(r'^(?P<store_pk>[0-9]+)/review/(?P<pk>[0-9]+)/edit/$', hof_views.review_edit, name='review_edit'),
     # url(r'^(?P<id>[0-9]+)/review/(?P<pk>[0-9]+)/delete/$', hof_views.review_delete, name='review_delete'),
 ]
+
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

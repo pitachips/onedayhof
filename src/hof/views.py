@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
+from django.contrib import messages
 
 from .models import Store, StoreImage
 from .forms import StoreForm, StoreImageForm
@@ -26,15 +27,16 @@ def store_new(request):
     if request.method == 'POST':
         storeForm = StoreForm(request.POST)
         formset = ImageFormSet(request.POST, request.FILES, queryset=StoreImage.objects.none())
+
         if storeForm.is_valid() and formset.is_valid():
             store = storeForm.save(commit=False)
             store.owner = request.user
             store.save()
-            for form in formset.cleaned_data:
-                image = form['image']
-                photo = StoreImage(post=post_form, image=image)
-                photo.save()
-            messages.success(request, "성공적")
+            store_images = formset.save(commit=False)
+            for store_image in store_images:
+                store_image.store = store
+                store_image.save()
+            messages.success(request, "업체가 성공적으로 등록되었습니다. 관리자의 승인 후에 실제로 홈페에지에 게시됩니다.")
             return redirect("/")
     else:
         storeForm = StoreForm()

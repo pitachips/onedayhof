@@ -32,6 +32,17 @@
 
 <body>
 
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <li class="alert alert-{{message.tags}}">
+                {{ message }}
+            </li>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
 {% block content %}
 {% endblock %}
 
