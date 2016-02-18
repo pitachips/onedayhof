@@ -7,6 +7,7 @@ from onedayhof.utils import random_name_upload_to
 # this is important # CHOICES 향후 추가 필요함!
 
 GU_CHOICES = (
+    ('','필수선택'),
     ('gwanak', '관악구'),
     ('seocho', '서초구'),
     ('joongrang', '중랑구'),
@@ -16,6 +17,7 @@ GU_CHOICES = (
 )
 
 REGION_CHOICES = (
+    ('','필수선택'),
     ('hongdae', '홍대/신촌'),
     ('hoegi', '회기/강북'),
     ('gyodae', '교대/강남'),
@@ -29,6 +31,7 @@ REGION_CHOICES = (
 )
 
 ATMOSPHERE_CHOICES = (
+    ('','필수선택'),
     ('ordinary', '일반호프집'),
     ('club ', '클럽(오픈 플로어)'),
     ('bar', '바 형태'),

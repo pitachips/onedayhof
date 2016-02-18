@@ -1,6 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-#from django.contrib.auth import get_user_model
 from django import forms
 import re
 from django.core.validators import RegexValidator
@@ -28,14 +27,6 @@ class SignupForm(UserCreationForm):
             user.profile.save()
         return user
 
-    # def __init__(self, *args, **kwargs):
-    #     super(SignupForm, self).__init__(*args, **kwargs)
-    #     self.fields['username'].label = "아이디를 입력하세요."
-    #     self.fields['password1'].label = "패스워드를 입력하세요."
-    #     self.fields['password2'].label = "패스워드를 다시 한 번 입력하세요."
-    #     self.fields['school'].label = "소속학교를 정확하게 입력해주세요."
-    #     self.fields['major'].label = "소속학과를 정확하게 입력해주세요"
-
 
 class OwnerSignupForm(UserCreationForm):
     is_agree = forms.BooleanField(label='약관동의', error_messages={
@@ -51,10 +42,3 @@ class OwnerSignupForm(UserCreationForm):
             user.profile.is_store_owner = True
             user.profile.save()
         return user
-
-    def __init__(self, *args, **kwargs):
-        super(OwnerSignupForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label = "아이디를 입력하세요."
-        self.fields['password1'].label = "패스워드를 입력하세요."
-        self.fields['password2'].label = "패스워드를 다시 한 번 입력하세요."
-        self.fields['phone'].label = "전화번호를 입력해주세요."
