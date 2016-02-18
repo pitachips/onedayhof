@@ -52,3 +52,8 @@ def owner_signup(request):
     else:
         messages.info(request, "잘못된 접근입니다.")
         return redirect('index')
+
+
+def profile(request):
+    return render(request, 'accounts/profile.html')
+
