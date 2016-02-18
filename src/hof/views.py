@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
 from django.contrib import messages
-
+from django.db.models import Q
 from .models import Store, StoreImage
 from .forms import StoreForm, StoreImageForm
 
@@ -11,6 +11,37 @@ def index(request):
 
 
 def store_list(request):
+
+    store_list = Store.objects.all().order_by('-rating')
+
+
+    ## 검색파트
+    query_where = request.GET.get('where')
+    query_what = request.GET.get('what')
+
+    if query_where and query_what:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where)) &
+            (Q(atmosphere__contains=query_what) |
+            Q(description__contains=query_what) |
+            Q(categories__contains=query_what) |
+            Q(contract_condition__contains=query_what))
+        ).distinct()
+    elif query_where and not query_what:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where))
+        ).distinct()
+    elif not query_where and query_what:
+        store_list = store_list.filter(
+            (Q(atmosphere__contains=query_what) |
+            Q(description__contains=query_what) |
+            Q(categories__contains=query_what) |
+            Q(contract_condition__contains=query_what))
+        ).distinct()
+    else:
+        pass
     return render(request, 'hof/store_list.html', {})
 
 
