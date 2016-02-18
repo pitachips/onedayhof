@@ -24,18 +24,10 @@ from hof import views as hof_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('accounts.urls')),
     url(r'^$', hof_views.index, name='index'),
-    url(r'^store/$', hof_views.store_list, name='store_list'),
-    url(r'^store/(?P<pk>[0-9]+)/$', hof_views.store_detail, name='store_detail'),
-    url(r'^store/new/$', hof_views.store_new, name='store_new' ),
-    url(r'^store/(?P<pk>[0-9]+)/edit/$', hof_views.store_edit, name='store_edit'),
-    url(r'^store/(?P<pk>[0-9]+)/delete/$', hof_views.store_delete, name='store_delete'),
-    url(r'^store/(?P<store_id>[0-9]+)/review/new/$', hof_views.review_new, name='review_new'),
-    url(r'^store/(?P<store_id>[0-9]+)/review/(?P<review_id>[0-9]+)/edit/$', hof_views.review_edit, name='review_edit'),
-    #url(r'^(?P<id>[0-9]+)/review/(?P<pk>[0-9]+)/delete/$', hof_views.review_delete, name='review_delete'),
+    url(r'^accounts/', include('accounts.urls')),
+    url(r'^store/', include('hof.urls')),
 ]
-
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

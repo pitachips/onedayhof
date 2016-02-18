@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -42,7 +43,7 @@ ATMOSPHERE_CHOICES = (
 class Store(models.Model):
 
     name = models.CharField(max_length=80)
-    owner = models.CharField(max_length=20)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, default='1')
     contract_condition = models.TextField()
     tel = models.CharField(max_length=20)
     address = models.CharField(max_length=120)
@@ -72,6 +73,7 @@ class StoreImage(models.Model):
 
 class Review(models.Model):
     store = models.ForeignKey(Store)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default='1')
     rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
