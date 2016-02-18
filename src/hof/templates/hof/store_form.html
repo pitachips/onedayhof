@@ -1,5 +1,11 @@
 {% extends 'hof/base.html' %}
+{% load staticfiles %}
 {% load bootstrap3 %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'store_form.css' %}" />
+{% endblock %}
+
 
 {% block content %}
 
