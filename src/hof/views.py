@@ -3,6 +3,8 @@ from django.forms import modelformset_factory
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+
 from .models import Store, StoreImage, Review, ReviewImage
 from .forms import StoreForm, StoreImageForm, ReviewForm, ReviewImageForm
 
@@ -11,6 +13,7 @@ def index(request):
     return render(request, 'hof/index.html', {})
 
 
+@login_required
 def store_list(request):
     store_list = Store.objects.all().order_by('-rating')
 
@@ -42,14 +45,18 @@ def store_list(request):
     return render(request, 'hof/store_list.html', {})
 
 
+@login_required
 def store_detail(request, pk):
     store = get_object_or_404(Store, pk=pk)
     return render(request, 'hof/store_detail.html', {
         'store':store,
     })
 
-
+@login_required
 def store_new(request):
+    if not request.user.is_staff and not request.user.profile.is_store_owner:
+        return redirect('index')
+
     ImageFormSet = modelformset_factory(StoreImage, form=StoreImageForm, extra=3)
 
     if request.method == 'POST':
@@ -75,8 +82,13 @@ def store_new(request):
         'formset': formset,
     })
 
+
+@login_required
 def store_edit(request,pk):
-    store = Store.objects.get(pk=pk)
+    store = get_object_or_404(Store, pk=pk)
+    if request.user != store.owner:
+        return redirect('/')
+
     store_image = store.storeimage_set.all()
     ImageFormSet = modelformset_factory(StoreImage, form=StoreImageForm, extra=3)
 
@@ -103,10 +115,18 @@ def store_edit(request,pk):
         'formset': formset,
     })
 
-def store_delete(request,pk):
-    Store.objects.get(pk=pk).delete()
+@login_required
+def store_delete(request, pk):
+    store = get_object_or_404(Store, pk=pk)
+    if request.user != store.owner:
+        return redirect('index')
+
+    store.delete()
+    messages.error(request, "업체가 삭제되었습니다.")
     return redirect("hof:index")
 
+
+@login_required
 def review_new(request, store_id):
     store=Store.objects.get(pk=store_id)
     if (request.method =="POST"):
