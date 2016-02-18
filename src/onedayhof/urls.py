@@ -16,6 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from hof import views as hof_views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', hof_views.index, name='index'),
+    url(r'^store/$', hof_views.store_list, name='store_list'),
+    url(r'^store/(?P<pk>[0-9]+)/$', hof_views.store_detail, name='store_detail'),
+    # url(r'^new/$', hof_views.store_new, name='store_new' ),
+    # url(r'^(?P<pk>[0-9]+)/edit/$', hof_views.store_edit, name='store_edit'),
+    # url(r'^(?P<pk>[0-9]+)/delete/$', hof_views.store_delete, name='store_delete'),
+    # url(r'^(?P<id>[0-9]+)/review/new/$', hof_views.review_new, name='review_new'),
+    # url(r'^(?P<store_pk>[0-9]+)/review/(?P<pk>[0-9]+)/edit/$', hof_views.review_edit, name='review_edit'),
+    # url(r'^(?P<id>[0-9]+)/review/(?P<pk>[0-9]+)/delete/$', hof_views.review_delete, name='review_delete'),
 ]
