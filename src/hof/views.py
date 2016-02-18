@@ -12,9 +12,7 @@ def index(request):
 
 
 def store_list(request):
-
     store_list = Store.objects.all().order_by('-rating')
-
 
     ## 검색파트
     query_where = request.GET.get('where')
@@ -26,7 +24,6 @@ def store_list(request):
             Q(region__contains=query_where)) &
             (Q(atmosphere__contains=query_what) |
             Q(description__contains=query_what) |
-            Q(categories__contains=query_what) |
             Q(contract_condition__contains=query_what))
         ).distinct()
     elif query_where and not query_what:
@@ -38,7 +35,6 @@ def store_list(request):
         store_list = store_list.filter(
             (Q(atmosphere__contains=query_what) |
             Q(description__contains=query_what) |
-            Q(categories__contains=query_what) |
             Q(contract_condition__contains=query_what))
         ).distinct()
     else:
