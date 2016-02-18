@@ -8,7 +8,7 @@ class Store(models.Model):
 
     name = models.CharField(max_length=80)
     owner = models.CharField(max_length=20)
-    contract_term = models.TextField()
+    contract_condition = models.TextField()
     tel = models.CharField(max_length=20)
     address = models.CharField(max_length=120)
     lnglat = models.CharField(max_length=80, default='')
@@ -33,7 +33,7 @@ class Review(models.Model):
     store = models.ForeignKey(Store)
     rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     def __str__(self):
         return self.content
