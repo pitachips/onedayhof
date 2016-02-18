@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from accounts.forms import SignupForm, OwnerSignupForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
@@ -54,6 +55,7 @@ def owner_signup(request):
         return redirect('index')
 
 
+@login_required
 def profile(request):
     return render(request, 'accounts/profile.html')
 
