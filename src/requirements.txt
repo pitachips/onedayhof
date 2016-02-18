@@ -1,3 +1,6 @@
 Django==1.9.2
+django-bootstrap3==6.2.2
+django-debug-toolbar==1.4
 Pillow==3.1.1
+sqlparse==0.1.18
 wheel==0.26.0

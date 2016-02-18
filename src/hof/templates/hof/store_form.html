@@ -1,0 +1,27 @@
+{% extends 'hof/base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+            {% bootstrap_form storeForm %}
+            {% bootstrap_formset formset %}
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">{% bootstrap_icon "ok-sign" %} 업체 등록하기</button>
+            {% endbuttons %}
+        </form>
+        <hr />
+        <a class="btn btn-default" href="{% url 'index' %}">메인화면</a>
+    </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
