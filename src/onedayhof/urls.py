@@ -32,8 +32,8 @@ urlpatterns = [
     url(r'^store/(?P<pk>[0-9]+)/edit/$', hof_views.store_edit, name='store_edit'),
     url(r'^store/(?P<pk>[0-9]+)/delete/$', hof_views.store_delete, name='store_delete'),
     url(r'^store/(?P<store_id>[0-9]+)/review/new/$', hof_views.review_new, name='review_new'),
-    # url(r'^(?P<store_pk>[0-9]+)/review/(?P<pk>[0-9]+)/edit/$', hof_views.review_edit, name='review_edit'),
-    # url(r'^(?P<id>[0-9]+)/review/(?P<pk>[0-9]+)/delete/$', hof_views.review_delete, name='review_delete'),
+    url(r'^store/(?P<store_id>[0-9]+)/review/(?P<review_id>[0-9]+)/edit/$', hof_views.review_edit, name='review_edit'),
+    #url(r'^(?P<id>[0-9]+)/review/(?P<pk>[0-9]+)/delete/$', hof_views.review_delete, name='review_delete'),
 ]
 
 
