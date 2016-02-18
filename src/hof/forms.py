@@ -6,7 +6,7 @@ from .models import Store, StoreImage, Review, ReviewImage
 class StoreForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ('name', 'contract_condition', 'tel', 'address', 'max_guest', 'menu', 'description', )
+        fields = ('name', 'contract_condition', 'tel', 'address', 'max_guest', 'menu', 'description', 'gu', 'region', 'atmosphere', )
 
 
 class StoreImageForm(forms.ModelForm):
