@@ -1,7 +1,30 @@
-<form action = "" method = "POST">
-{% csrf_token %}
-    <table>
-        {{form.as_table}}
-    </table>
-    <input type = "submit" value = "제출"/>
-</form>
+{% extends 'hof/base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+
+{% block style %}
+    <link href="{% static 'signup.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form method="post" action="">{% csrf_token %}
+            {% bootstrap_form form %}
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">{% bootstrap_icon "ok-sign" %} 회원가입 </button>
+            {% endbuttons %}
+        </form>
+        <hr />
+        <a class="btn btn-default" href="{% url 'index' %}">메인화면</a>
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}
