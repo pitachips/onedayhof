@@ -24,6 +24,7 @@ from hof import views as hof_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^$', hof_views.index, name='index'),
     url(r'^store/$', hof_views.store_list, name='store_list'),
     url(r'^store/(?P<pk>[0-9]+)/$', hof_views.store_detail, name='store_detail'),
