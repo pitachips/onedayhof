@@ -4,7 +4,22 @@
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'store_form.css' %}" />
+    <style type="text/css">
+    .radio {
+        display: inline-block;
+        border-radius: 3px;
+        margin: 10px 1px;
+        border: 1px solid #aaa;
+    }
+    .radio:hover, .radio:focus, .radio:active {
+        background-color: #aaa;
+    }
+    .radio label {
+        padding:5px;
+    }
+    </style>
 {% endblock %}
+
 
 
 {% block content %}
@@ -25,6 +40,27 @@
     </div>
     </div>
 </div>
+
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+$(document).ready(function(){
+    function selectedRadioColor(radioInput){
+        $(radioInput).on('change', function() {
+        $(radioInput).parent().parent().css('background-color', 'white');
+        $(this).parent().parent().css('background-color', '#aaa');
+        });
+    }
+
+    selectedRadioColor('#id_gu input')
+    selectedRadioColor('#id_region input')
+    selectedRadioColor('#id_atmosphere input')
+});
+</script>
+
 
 
 {% endblock %}

@@ -52,6 +52,7 @@ def store_detail(request, pk):
         'store':store,
     })
 
+
 @login_required
 def store_new(request):
     if not request.user.is_staff and not request.user.profile.is_store_owner:
@@ -115,6 +116,7 @@ def store_edit(request,pk):
         'formset': formset,
     })
 
+
 @login_required
 def store_delete(request, pk):
     store = get_object_or_404(Store, pk=pk)
@@ -146,6 +148,7 @@ def review_new(request, store_id):
         form = ReviewForm()
     return render(request, 'hof/review_form.html', {'form': form, 'store':store})
 
+
 def review_edit(request, store_id, review_id):
     store = Store.objects.get(pk=store_id)
     review = Review.objects.get(pk=review_id)
@@ -163,6 +166,7 @@ def review_edit(request, store_id, review_id):
     else:
         form = ReviewForm(instance=review)
     return render(request, 'hof/review_form.html', {'form': form, 'store':store})
+
 
 def review_delete(request, store_id, review_id):
     store = Store.objects.get(pk=store_id)

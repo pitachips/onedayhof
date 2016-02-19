@@ -8,17 +8,16 @@ from onedayhof.utils import random_name_upload_to
 # this is important # CHOICES 향후 추가 필요함!
 
 GU_CHOICES = (
-    ('','필수선택'),
     ('gwanak', '관악구'),
     ('seocho', '서초구'),
     ('joongrang', '중랑구'),
     ('gumcheon', '금천구'),
     ('gangnam', '강남구'),
     ('joong', '중구'),
+    ('etc_gu','그외 지역'),
 )
 
 REGION_CHOICES = (
-    ('','필수선택'),
     ('hongdae', '홍대/신촌'),
     ('hoegi', '회기/강북'),
     ('gyodae', '교대/강남'),
@@ -29,15 +28,16 @@ REGION_CHOICES = (
     ('jongro', '종로/명동'),
     ('jamsil', '잠실/송파'),
     ('gundae', '건대/강변'),
+    ('etc_region','기타지역'),
 )
 
 ATMOSPHERE_CHOICES = (
-    ('','필수선택'),
     ('ordinary', '일반호프집'),
     ('club ', '클럽(오픈 플로어)'),
     ('bar', '바 형태'),
     ('gamsung', '감성주점 느낌'),
     ('traditional', '전통주점 스타일'),
+    ('etc_atmosphere','기타'),
 )
 
 class Store(models.Model):
