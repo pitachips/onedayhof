@@ -17,7 +17,9 @@
 
             {% buttons %}
                 <button type="submit" class="btn btn-primary">{% bootstrap_icon "ok-sign" %} 로그인 </button>
+                <a class="btn btn-default" href="{% url 'signup_choice' %}">회원가입</a>
             {% endbuttons %}
+
         </form>
         <hr />
         <a class="btn btn-default" href="{% url 'index' %}">메인화면</a>
