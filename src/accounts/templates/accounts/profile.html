@@ -1,1 +1,14 @@
-<h1>this is accounts/profile.html</h1>
+{% extends 'hof/base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block style %}
+    <link href="{% static 'signup.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+<a href="{% url 'password_change' %}"><h1>this is accounts/profile.html</h1></a>
+
+{% endblock %}
