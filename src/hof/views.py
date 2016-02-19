@@ -87,15 +87,12 @@ def store_new(request):
 @login_required
 def store_edit(request,pk):
     store = get_object_or_404(Store, pk=pk)
-    if request.user != store.owner:
-        return redirect('/')
-
     store_image = store.storeimage_set.all()
     ImageFormSet = modelformset_factory(StoreImage, form=StoreImageForm, extra=3)
 
     if request.method == 'POST':
         storeForm = StoreForm(request.POST, instance=store)
-        formset = ImageFormSet(request.POST, request.FILES, queryset=store_image)
+        formset = ImageFormSet(request.POST, request.FILES, queryset=store_image.all())
 
         if storeForm.is_valid() and formset.is_valid():
             store = storeForm.save(commit=False)
@@ -105,11 +102,11 @@ def store_edit(request,pk):
             for store_image in store_images:
                 store_image.store = store
                 store_image.save()
-            messages.success(request, "업체가 성공적으로 등록되었습니다. 관리자의 승인 후에 실제로 홈페이지에 게시됩니다.")
+            messages.success(request, "업체가 성공적으로 등록되었습니다. 관리자의 승인 후에 실제로 홈페에지에 게시됩니다.")
             return redirect("/")
     else:
         storeForm = StoreForm(instance=store)
-        formset = ImageFormSet(queryset=store_image)
+        formset = ImageFormSet(queryset=store_image.all())
 
     return render(request, 'hof/store_form.html', {
         'storeForm': storeForm,
