@@ -24,15 +24,16 @@ def store_list(request):
     query_direct_search = request.GET.get('direct_search')
 
 
-    store_list = store_list.filter(
-        (Q(gu__contains=query_where) |
-        Q(region__contains=query_where) |
-        Q(address_contains=query_where)) &
-        Q(max_guest__gt=query_howmany) &
-        (Q(name__contains=query_direct_search) |
-        Q(atmosphere__contains=query_direct_search) |
-        Q(description__contains=query_direct_search))
-    )
+    if query_where or query_howmany or query_direct_search:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where) |
+            Q(address_contains=query_where)) &
+            Q(max_guest__gt=query_howmany) &
+            (Q(name__contains=query_direct_search) |
+            Q(atmosphere__contains=query_direct_search) |
+            Q(description__contains=query_direct_search))
+        )
 
 
     # if query_where and query_howmany:
