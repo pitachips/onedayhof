@@ -4,6 +4,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+from hof.models import Store
+
 
 
 class Profile(models.Model):
@@ -16,6 +18,7 @@ class Profile(models.Model):
     # 학생 only
     school = models.CharField(max_length=40, null=True)
     major = models.CharField(max_length=40, null=True)
+    favorites = models.ManyToManyField(Store, blank=True)
 
     def __str__(self):
         return self.user.username

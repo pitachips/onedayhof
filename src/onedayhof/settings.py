@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #third-party apps
     'debug_toolbar',
     'bootstrap3',
+    'hitcount',
+    #our apps
     'hof',
     'accounts',
-    'hitcount',
 ]
 
 MIDDLEWARE_CLASSES = [

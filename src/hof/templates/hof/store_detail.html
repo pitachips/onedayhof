@@ -53,6 +53,9 @@
                         <h4 class="pull-right">$24.99</h4>
                         <h4><a href="#">Product Name</a>
                         </h4>
+
+
+
                         <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
                         <p>Want to make these reviews work? Check out
                             <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
@@ -145,11 +148,17 @@
     </div>
     <!-- /.container -->
 
+
+    <button id="favorite" class="btn btn-default" href="{% url 'favorite_this_store' store.pk user.pk %}">즐겨찾기 추가하기</button>
+
 {% endblock %}
 
 {% block js %}
 
-<script src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=ushULXybPCKhcCLnW2nk"></script>
+<script>
+
+</script>
+
 {% endblock %}
 
 
