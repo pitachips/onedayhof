@@ -148,9 +148,12 @@
     </div>
     <!-- /.container -->
 
-    <form action="" method="POST">{% csrf_token %}
+    {% if favorite_flag %}
+        <button class="btn btn-warning">즐겨찾기에 등록된 장소</button>
+    {% else %}
         <button id="favorite" class="btn btn-default" href="{% url 'favorite_this_store' store.pk %}">즐겨찾기 추가하기</button>
-    </form>
+    {% endif %}
+
 
 {% endblock %}
 

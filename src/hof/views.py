@@ -50,12 +50,18 @@ def store_list(request):
 def store_detail(request, pk):
     store = get_object_or_404(Store, pk=pk)
     if store.is_active==True:
-        return render(request, 'hof/store_detail.html', {
+        context = {
             'store':store,
-        })
+        }
+        if store.profile_set.filter(user=request.user).exists():
+            context = {
+                'favorite_flag':True,
+            }
+        return render(request, 'hof/store_detail.html', context)
     else:
         messages.error(request, "업체를 확인중입니다. 승인 후에 실제로 홈페이지에 게시됩니다.")
         return redirect("/")
+
 
 
 @login_required
