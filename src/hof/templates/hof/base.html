@@ -44,8 +44,9 @@
     </div>
     {% endif %}
 
-{% include 'hof/navbar.html' %}
-
+{% block navbar %}
+    {% include 'hof/navbar.html' %}
+{% endblock %}
 
 {% block content %}
 {% endblock %}

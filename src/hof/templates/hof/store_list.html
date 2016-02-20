@@ -3,6 +3,15 @@
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'store_list.css' %}" />
+<style>
+    .navbar-form {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'hof/navbar2.html' %}
 {% endblock %}
 
 
