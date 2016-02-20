@@ -131,8 +131,28 @@
             </div>
 
             <div class="col-md-4">
-                <p class="lead">업체의 위치</p>
-                <div id="map">
+                <div class="tab-content">
+                    <p class="lead">업체의 위치</p>
+                    <div id="map" class="tab-pane fade in active" style="width:400px;height:300px;">
+                    </div>
+                    <script>
+                    var map;
+                    function initMap() {
+
+                    var myLatLng = {lat: 37.57, lng: 126.98656};
+                    map = new google.maps.Map(document.getElementById('map'), {
+                    center: myLatLng,
+                    zoom: 15
+                    });
+                    var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Hello World!'
+                    });
+                    }
+                    </script>
+                    <script src="https://maps.googleapis.com/maps/api/js?&callback=initMap"
+                        async defer></script>
                 </div>
             </div>
 

@@ -1,9 +1,11 @@
 from django import forms
 
 from .models import Store, StoreImage, Review, ReviewImage
-
+from .widgets import PointWidget
 
 class StoreForm(forms.ModelForm):
+    lnglat = forms.CharField(widget=PointWidget)
+
     class Meta:
         model = Store
         fields = ('name', 'contract_condition', 'tel', 'address', 'max_guest', 'menu', 'description', 'gu', 'region', 'atmosphere', )
@@ -11,6 +13,8 @@ class StoreForm(forms.ModelForm):
             'gu': forms.RadioSelect(attrs={'style':'display: none'}),
             'region': forms.RadioSelect(attrs={'style':'display: none'}),
             'atmosphere': forms.RadioSelect(attrs={'style':'display: none'}),
+            'intro': forms.Textarea(attrs={'style':'resize:none; width:500px; height:100px;', }),
+            # 'lnglat': PointWidget,
         }
 
 

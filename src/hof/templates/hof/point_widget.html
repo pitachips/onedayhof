@@ -1,0 +1,91 @@
+
+<style>
+    {# /* 구글맵 기본 스타일 보전 */ #}
+    #map_canvas_{{ id }} img {
+        max-width: none;
+    }
+    #map_canvas_{{ id }} label {
+        width: auto;
+        display: inline;
+    }
+</style>
+<script src="https://maps.googleapis.com/maps/api/js?v={{ google_map_version }}&sensor=false"></script>
+
+<script>
+(function($) {
+    var map;
+    var marker;
+    var geocoder;
+
+    var update_field = function(position) {
+        var lnglat = position.lng() + "," + position.lat();
+        console.log(lnglat);
+        $("#{{ id }}").val(lnglat);
+    };
+
+    function geocodeAddress(address) {
+
+      geocoder.geocode({'address': address}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          var location = results[0].geometry.location;
+
+          $('#query_{{ id }}').val(results[0].formatted_address);
+
+          // var marker = new google.maps.Marker({
+          //   map: resultsMap,
+          //   position: results[0].geometry.location
+          // });
+          console.log(results);
+
+          map.setCenter(location);
+          marker.setPosition(location);
+          update_field(location);
+        } else {
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });
+
+    }
+
+    $(document).ready(function() {
+        var map_dom_element = $("#map_canvas_{{ id }}")[0];
+        var center = new google.maps.LatLng({{ base_lat }}, {{ base_lng }});
+        var options = {
+            zoom: 15,
+            center: center
+        };
+
+        map = new google.maps.Map(map_dom_element, options);
+        geocoder = new google.maps.Geocoder();
+
+        marker = new google.maps.Marker({
+            map: map,
+            position: center,
+            draggable: true
+        });
+
+        update_field(center);
+
+        google.maps.event.addListener(map, "click", function(e) {
+            marker.setPosition(e.latLng);
+            update_field(e.latLng);
+        });
+
+        google.maps.event.addListener(marker, 'drag_end', function(e) {
+            // !!!
+        });
+
+        $("#query_submit_{{ id }}").click(function(e) {
+            var q = $('#query_{{ id }}').val();
+            geocodeAddress(q);
+            return false;
+        });
+    });
+})(jQuery);
+</script>
+
+<div>
+    <input type="text" placeholder="검색어" id="query_{{ id }}" class="form-control" />
+    <a class="btn btn-default" id="query_submit_{{ id }}">검색</a>
+</div>
+<div id="map_canvas_{{ id }}" style="width: {{ width }}; height: {{ height }};">map loading ...</div>
