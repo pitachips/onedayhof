@@ -11,58 +11,58 @@
 
 
     <!-- Page Content -->
-    <div id="top-bar" class="col-md-12" style="margin-top: -17px;">
+    <div id="top-bar" class="col-md-12" style="margin-top: -18px;">
         <div style="margin-left: 42px;">
         <h1 style="margin-top: 5px; margin-bottom: 4px;">{{store.name}}<span style="font-size:12px;">{{store.atmosphere}}</span>
         <a href = "{% url 'tel_detail' store.pk %}"><btn class="btn btn-primary" style="position : right">연락처보기</btn></a></h1>
         <h5 style="margin-top: 0px; margin-bottom: 4px;">{{store.address}}</h5>
-        <btn class="btn btn-primary">{{store.get_gu_display}}</btn><btn class="btn btn-primary">{{store.get_region_display}}</btn><btn class="btn btn-primary">{{store.max_guest}}</btn><btn class="btn btn-primary">{{store.get_atmosphere_display}}</btn>
+        <btn class="btn btn-primary">{{store.get_gu_display}}</btn><btn class="btn btn-primary">{{store.get_region_display}}</btn><btn class="btn btn-primary">{{store.max_guest}}명</btn><btn class="btn btn-primary">{{store.get_atmosphere_display}}</btn>
         </div>
     </div>
     <div class="container">
         <div class="row">
-
             <div class="col-md-8">
                 <div class="thumbnail">
-                    {% if store_image.image %}
-                    <img style="float:left; margin: -20px -20px 20px 0; max-width:600px; max-height:500px" src="/media/{{ store_image.image.url }}"/>
+                    {% if store_image.first.image %}
+                    <img style="float:left; margin-left: -5px; max-width:600px; max-height:500px" src="{{ store_image.first.image.url }}"/>
                     {% else %}
                     <img style="float:left; margin: 0px 20px 20px 0;" src="http://placehold.it/400x300" />
                     {% endif %}
-                    <div class="caption-full">
-                        <h4 class="pull-right">$24.99</h4>
-                        <h4><a href="#">Product Name</a>
-                        </h4>
-
-
-
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p>Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">3 reviews</p>
-                        <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            4.0 stars
-                        </p>
-                    </div>
+                </div>
+                <div class="caption-full" style="clear:both">
+                    <h4 class="pull-right">$24.99</h4>
+                    <h4><a href="#">Product Name</a>
+                    </h4>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">3 reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        4.0 stars
+                    </p>
                 </div>
 
                 <div class="well">
 
                     <div class="text-right">
-                        <a class="btn btn-success">Leave a Review</a>
+                        <form enctype ="multipart/form-data" action="{% url 'review_new' store.pk %}" method="post">
+                        {% csrf_token %}
+                        {{ review_form }}
+                        <input type="submit" value="리뷰 달기" class="btn btn-block btn-primary"/>
+                   </form>
                     </div>
 
                     <hr>
 
+                    {% for review in store.review_set.all %}
+                    <h3>{{review.author}}</h3>
+                    <h5>평점 : {{review.rating}}</h5>
+                    <p>{{review.content}}<p>
+                    {% endfor %}
                     <div class="row">
                         <div class="col-md-12">
                             <span class="glyphicon glyphicon-star"></span>
