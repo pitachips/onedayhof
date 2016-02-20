@@ -5,9 +5,10 @@ from django.utils import timezone
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from hitcount.views import HitCountDetailView
+
 from .models import Store, StoreImage, Review, ReviewImage
 from .forms import StoreForm, StoreImageForm, ReviewForm, ReviewImageForm
-
+from accounts.models import Profile
 
 def index(request):
     return render(request, 'hof/index.html', {})
@@ -185,3 +186,12 @@ class TelDetailView(HitCountDetailView):
         return context
 
 tel_detail = TelDetailView.as_view()
+
+@login_required
+def favorite_this_store(request, store_id):
+    store = get_object_or_404(Store, pk=store_id)
+    profile = get_object_or_404(Profile, pk=request.user.id)
+    profile.save()
+    profile.favorites.add(store)
+    profile.save()
+    return redirect('store_detail', store_id)
