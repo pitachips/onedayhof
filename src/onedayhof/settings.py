@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'hof',
     'accounts',
+    'hitcount',
 ]
 
 MIDDLEWARE_CLASSES = [

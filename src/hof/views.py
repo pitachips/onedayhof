@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-
+from hitcount.views import HitCountDetailView
 from .models import Store, StoreImage, Review, ReviewImage
 from .forms import StoreForm, StoreImageForm, ReviewForm, ReviewImageForm
 
@@ -175,3 +175,13 @@ def review_delete(request, store_id, review_id):
     return redirect(store_detail, pk=store_id)
 
 
+class TelDetailView(HitCountDetailView):
+    model = Store
+    template_name = 'hof/tel_detail.html'
+    count_hit = True
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TelDetailView, self).get_context_data(*args, **kwargs)
+        return context
+
+tel_detail = TelDetailView.as_view()
