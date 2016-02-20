@@ -63,9 +63,11 @@ def store_list(request):
 @login_required
 def store_detail(request, pk):
     store = get_object_or_404(Store, pk=pk)
+    store_image = store.storeimage_set.all()
     if store.is_active==True:
         context = {
             'store':store,
+            'store_image':store_image,
         }
         if store.profile_set.filter(user=request.user).exists():
             context = {

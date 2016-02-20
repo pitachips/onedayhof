@@ -11,44 +11,24 @@
 
 
     <!-- Page Content -->
+    <div id="top-bar" class="col-md-12" style="margin-top: -17px;">
+        <div style="margin-left: 42px;">
+        <h1 style="margin-top: 5px; margin-bottom: 4px;">{{store.name}}<span style="font-size:12px;">{{store.atmosphere}}</span>
+        <a href = "{% url 'tel_detail' store.pk %}"><btn class="btn btn-primary" style="position : right">연락처보기</btn></a></h1>
+        <h5 style="margin-top: 0px; margin-bottom: 4px;">{{store.address}}</h5>
+        <btn class="btn btn-primary">{{store.get_gu_display}}</btn><btn class="btn btn-primary">{{store.get_region_display}}</btn><btn class="btn btn-primary">{{store.max_guest}}</btn><btn class="btn btn-primary">{{store.get_atmosphere_display}}</btn>
+        </div>
+    </div>
     <div class="container">
-
         <div class="row">
+
             <div class="col-md-8">
-                <div class="carousel-inner">
-                    {% for image in store_image %}
-                    <div class="item">
-                        <div class="fill"
-                       {% if image.image %}
-                       <img src="{{image.image.url}}"/>
-                       {% else %}
-                       <img style="vertical-align:top; float:left; margin-right: 10px;" src="http://placehold.it/100x100" />
-                       {% endif %}
-                    </div>
-                    {% endfor %}
-                    <div class="item active">
-                        <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
-                        <div class="carousel-caption">
-                            <h2>Caption 1</h2>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
-                        <div class="carousel-caption">
-                            <h2>Caption 2</h2>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
-                        <div class="carousel-caption">
-                            <h2>Caption 3</h2>
-                        </div>
-                    </div>
-                </div>
-
-
                 <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+                    {% if store_image.image %}
+                    <img style="float:left; margin: -20px -20px 20px 0; max-width:600px; max-height:500px" src="/media/{{ store_image.image.url }}"/>
+                    {% else %}
+                    <img style="float:left; margin: 0px 20px 20px 0;" src="http://placehold.it/400x300" />
+                    {% endif %}
                     <div class="caption-full">
                         <h4 class="pull-right">$24.99</h4>
                         <h4><a href="#">Product Name</a>
