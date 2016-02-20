@@ -69,6 +69,7 @@ def store_detail(request, pk):
         context = {
             'store':store,
             'store_image':store_image,
+            'review_form':ReviewForm(),
         }
         if store.profile_set.filter(user=request.user).exists():
             context = {
