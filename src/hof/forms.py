@@ -17,6 +17,15 @@ class StoreForm(forms.ModelForm):
             # 'lnglat': PointWidget,
         }
 
+    def save(self, commit=True):
+        store = super(StoreForm, self).save(commit=False)
+        lng, lat = self.cleaned_data['lnglat'].split(',')
+        store.latitude = float(lat)
+        store.longitude = float(lng)
+        if commit:
+            store.save()
+        return store
+
 
 class StoreImageForm(forms.ModelForm):
     class Meta:

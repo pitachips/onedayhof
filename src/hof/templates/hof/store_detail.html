@@ -139,7 +139,7 @@
                     var map;
                     function initMap() {
 
-                    var myLatLng = {lat: 37.57, lng: 126.98656};
+                    var myLatLng = {lat: {{store.latitude}}, lng: {{store.longitude}}};
                     map = new google.maps.Map(document.getElementById('map'), {
                     center: myLatLng,
                     zoom: 15

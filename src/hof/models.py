@@ -47,7 +47,8 @@ class Store(models.Model):
     contract_condition = models.TextField()
     tel = models.CharField(max_length=20)
     address = models.CharField(max_length=120)
-    lnglat = models.CharField(max_length=80, default='')
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
 
     menu = models.TextField(blank=True, default='')
     rating = models.PositiveSmallIntegerField(blank=True, default=0)
