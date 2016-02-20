@@ -49,9 +49,13 @@ def store_list(request):
 @login_required
 def store_detail(request, pk):
     store = get_object_or_404(Store, pk=pk)
-    return render(request, 'hof/store_detail.html', {
-        'store':store,
-    })
+    if store.is_active==True:
+        return render(request, 'hof/store_detail.html', {
+            'store':store,
+        })
+    else:
+        messages.error(request, "업체를 확인중입니다. 승인 후에 실제로 홈페이지에 게시됩니다.")
+        return redirect("/")
 
 
 @login_required
