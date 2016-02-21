@@ -19,3 +19,8 @@
 </div>
 
 
+<div id="max_guest_list" style="display:none;">
+{% for max_guest in max_guest_list %}
+    <button class="btn btn-xs btn-defualt max_guest_choice" id="max_guest-{{ forloop.counter }}" class="" value="{{ max_guest }}">{{ max_guest }}</button>
+{% endfor %}
+</div>

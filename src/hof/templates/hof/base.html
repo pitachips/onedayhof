@@ -59,16 +59,31 @@ $(document).ready(function(){
 $(document).ready(function(){
 
     $("#where").focusin(function(){
+        $('#max_guest_list').hide();
         $('#region_list').show();
     });
 
     $('.region_choice').click(function(){
         var regionChoice = $(this).val();
-        console.log('hi');
         $('#where').val(regionChoice);
         $('#region_list').hide();
     });
 
+    $("#howmany").focusin(function(){
+        $('#region_list').hide();
+        $('#max_guest_list').show();
+    });
+
+    $('.max_guest_choice').click(function(){
+        var maxGuestChoice = $(this).val();
+        $('#howmany').val(maxGuestChoice);
+        $('#max_guest_list').hide();
+    });
+
+    $('#direct_search').click(function(){
+        $('#max_guest_list').hide();
+        $('#region_list').hide();
+    })
 
 });
 
