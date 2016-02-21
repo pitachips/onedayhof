@@ -25,9 +25,14 @@ def index(request):
 @login_required
 def store_list(request):
     store_list = Store.objects.all().order_by('-rating')
+
     region_list = []
     for region in REGION_CHOICES:
         region_list.append(region[1])
+
+    max_guest_list = []
+    for max_guest in MAX_GUEST_CHOICES:
+        max_guest_list.append(max_guest[1])
 
     ## 검색파트
     query_where = request.GET.get('where')
