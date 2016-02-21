@@ -81,6 +81,7 @@ class Store(models.Model):
     n_review = models.PositiveSmallIntegerField(default=0, blank=True)
     description = models.TextField(blank=True, default='')
     is_active = models.BooleanField(default=False)
+    is_index_page_recommended_store = models.PositiveSmallIntegerField(unique=True, validators=[MinValueValidator(0), MaxValueValidator(9)], blank=True, null=True)
 
     #태그용. 1개씩밖에 선택 못함.
     max_guest = models.CharField(max_length=5, choices=MAX_GUEST_CHOICES, default='')

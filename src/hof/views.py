@@ -19,7 +19,12 @@ def index(request):
     for max_guest in MAX_GUEST_CHOICES:
         max_guest_list.append(max_guest[1])
 
-    return render(request, 'hof/index.html', {'region_list':region_list, 'max_guest_list':max_guest_list, })
+    index_page_recommended_store_list = []
+    for i in range(1, 10):
+        store = get_object_or_404(Store, is_index_page_recommended_store=i);
+        recommended_store_list.append(store)
+
+    return render(request, 'hof/index.html', {'region_list':region_list, 'max_guest_list':max_guest_list, 'index_page_recommended_store_list':recommended_store_list, })
 
 
 @login_required
@@ -45,7 +50,7 @@ def store_list(request):
             (Q(gu__contains=query_where) |
             Q(region__contains=query_where) |
             Q(address__contains=query_where)) &
-            Q(max_guest__gt=query_howmany) &
+            Q(max_guest=query_howmany) &
             (Q(name__contains=query_direct_search) |
             Q(atmosphere__contains=query_direct_search) |
             Q(description__contains=query_direct_search))
