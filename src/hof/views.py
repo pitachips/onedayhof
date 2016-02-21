@@ -144,7 +144,9 @@ def store_list(request):
         stores = paginator.page(paginator.num_pages)
 
 
-    return render(request, 'hof/store_list.html', {'region_list':region_list, 'max_guest_list':max_guest_list, 'stores':stores, })
+    context = {'region_list':region_list, 'max_guest_list':max_guest_list, 'stores':stores, }
+
+    return render(request, 'hof/store_list.html', context)
 
 
 @login_required

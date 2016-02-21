@@ -36,10 +36,10 @@
                     <div class="row">
                         <div class="col-md-5">
                             <a href="{% url 'store_detail' pk=store.pk %}">
-                                {% if store.subimage_set.all %}
-                                    <img class="img-responsive" src="{{ store.subimage_set.all }}}" alt="">
+                                {% if store.storeimage_set.first %}
+                                    <img class="img-responsive" src="{{ store.storeimage_set.first.image.url }}" />
                                 {% else %}
-                                    <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                                    <img class="img-responsive" src="http://placehold.it/900x500" alt="">
                                 {% endif %}
                             </a>
                         </div>
