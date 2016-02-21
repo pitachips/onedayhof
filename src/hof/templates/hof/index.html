@@ -9,14 +9,13 @@
         .text-align-center {
             text-align: center;
         }
+
     </style>
 {% endblock %}
 
 
 
 {% block content %}
-
-
     <!-- Full Width Image Header -->
     <header class="header-image">
         <div class="headline">
@@ -39,34 +38,51 @@
                     적당한 장소를 찾아보세요.
                 </h2>
             </div>
+
+
             <div class="col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x200" alt="">
+                <a href="{% url 'store_list' %}">
+                    <div class="picture_search">
+                        <h3>신촌 / 홍대</h3>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-sm-6">
+                <a href="{% url 'store_list' %}">
+                    <div class="picture_search">
+                        <h3>대규모 일일호프</h3>
+                    </div>
                 </a>
             </div>
             <div class="col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x200" alt="">
+                <a href="{% url 'store_list' %}">
+                    <div class="picture_search">
+                        <h3>좋은 분배조건</h3>
+                    </div>
                 </a>
             </div>
             <div class="col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x200" alt="">
+                <a href="{% url 'store_list' %}">
+                    <div class="picture_search">
+                        <h3>서울대입구</h3>
+                    </div>
                 </a>
             </div>
+
             <div class="col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x200" alt="">
+                <a href="{% url 'store_list' %}">
+                    <div class="picture_search">
+                        <h3>대학로/안암</h3>
+                    </div>
                 </a>
             </div>
+
             <div class="col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x200" alt="">
-                </a>
-            </div>
-            <div class="col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x200" alt="">
+                <a href="{% url 'store_list' %}">
+                    <div class="picture_search">
+                        <h3>기본대관료가 싼 곳</h3>
+                    </div>
                 </a>
             </div>
         </div>
@@ -82,198 +98,165 @@
             </div>
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
                     <div class="caption">
-                        <h4 class="pull-right">$24.99</h4>
-                        <h4><a href="#">First Product</a>
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
                         </h4>
-                        <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">15 reviews</p>
+                        <p>{store.description}</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
+                    <div class="caption">
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
+                        </h4>
+                        <p>{store.description}</p>
+                        <p>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
                     <div class="caption">
-                        <h4 class="pull-right">$64.99</h4>
-                        <h4><a href="#">Second Product</a>
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
                         </h4>
-                        <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">12 reviews</p>
+                        <p>{store.description}</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
                     <div class="caption">
-                        <h4 class="pull-right">$74.99</h4>
-                        <h4><a href="#">Third Product</a>
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
                         </h4>
-                        <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">31 reviews</p>
+                        <p>{store.description}</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
                     <div class="caption">
-                        <h4 class="pull-right">$64.99</h4>
-                        <h4><a href="#">Second Product</a>
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
                         </h4>
-                        <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">12 reviews</p>
+                        <p>{store.description}</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
                     <div class="caption">
-                        <h4 class="pull-right">$74.99</h4>
-                        <h4><a href="#">Third Product</a>
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
                         </h4>
-                        <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">31 reviews</p>
+                        <p>{store.description}</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
                     <div class="caption">
-                        <h4 class="pull-right">$24.99</h4>
-                        <h4><a href="#">First Product</a>
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
                         </h4>
-                        <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">15 reviews</p>
+                        <p>{store.description}</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
                     <div class="caption">
-                        <h4 class="pull-right">$64.99</h4>
-                        <h4><a href="#">Second Product</a>
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
                         </h4>
-                        <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">12 reviews</p>
+                        <p>{store.description}</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
+                <div class="thumbnail thumbnail-borderless">
+                    <img class="img-thumbnail" src="http://placehold.it/320x200" alt="">
                     <div class="caption">
-                        <h4 class="pull-right">$74.99</h4>
-                        <h4><a href="#">Third Product</a>
+                        <h4 class="pull-right">{store.basic_fee}원~</h4>
+                        <h4><a href="#">{store.name}</a>
                         </h4>
-                        <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">31 reviews</p>
+                        <p>{store.description}</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x200" alt="">
-                    <div class="caption">
-                        <h4 class="pull-right">$74.99</h4>
-                        <h4><a href="#">Third Product</a>
-                        </h4>
-                        <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                    <div class="ratings">
-                        <p class="pull-right">31 reviews</p>
-                        <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                            <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                            <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
                         </p>
                     </div>
                 </div>
@@ -294,10 +277,5 @@
 
 {% block script %}
 
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
 
 {% endblock %}
