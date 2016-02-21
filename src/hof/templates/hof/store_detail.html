@@ -1,33 +1,411 @@
 {% extends 'hof/base.html' %}
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'store_detail.css' %}" />
+<style>
+.navbar-form, .text-align-center {
+        text-align: center;
+    }
+#top-bar {
+    background-color: #444;
+    color:#ccc;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+</style>
 {% endblock %}
 
 
 
+{% block navbar %}
+    {% include 'hof/navbar2.html' %}
+{% endblock %}
+
+
 {% block content %}
 
+<!-- Page Content -->
 
-    <!-- Page Content -->
-    <div id="top-bar" class="col-md-12" style="margin-top: -18px;">
-        <div style="margin-left: 42px;">
-        <h1 style="margin-top: 5px; margin-bottom: 4px;">{{store.name}}<span style="font-size:12px;">{{store.atmosphere}}</span>
-        <a href = "{% url 'tel_detail' store.pk %}"><btn class="btn btn-primary" style="position : right">연락처보기</btn></a></h1>
-        <h5 style="margin-top: 0px; margin-bottom: 4px;">{{store.address}}</h5>
-        <btn class="btn btn-primary">{{store.get_gu_display}}</btn><btn class="btn btn-primary">{{store.get_region_display}}</btn><btn class="btn btn-primary">{{store.max_guest}}명</btn><btn class="btn btn-primary">{{store.get_atmosphere_display}}</btn>
+<!--업체정보 summary-->
+<div id="top-bar">
+    <!-- <div class="well"> -->
+        <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 style="display: inline-block;">{{ store.name }}</h1>
+                <h4 style="display: inline-block;">{{ store.get_atmosphere_display }}</h4>
+                <h5>{{ store.address }}</h5>
+                <p>
+                <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
+                <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
+                <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
+                <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h3 class="pull-right">
+                    <a class="btn btn-lg btn-danger" href="{% url 'tel_detail' store.pk %}">연락처보기</a>
+                    {% if favorite_flag %}
+                    <button class="btn btn-lg btn-warning">추가 완료</button>
+                    {% else %}
+                    <button id="favorite" class="btn btn-lg btn-default" href="{% url 'favorite_this_store' store.pk %}">즐겨찾기 등록</button>
+                    {% endif %}
+                </h3>
+            </div>
         </div>
+        <!-- </div> -->
     </div>
+</div>
+<br />
+
+
+<div class="container">
+    <!-- Page Heading -->
+    <div class="row">
+
+        <!--업체 정보 content-->
+        <div class="col-md-8">
+
+            <!-- Preview Image -->
+            {% if store_image.first.image %}
+                <img class="img-responsive" src="{{ store_image.first.image.url }}"/>
+            {% else %}
+                <img class="img-responsive" src="http://placehold.it/900x500" alt="">
+            {% endif %}
+
+            <hr>
+
+            <!-- Post Content -->
+            <p class="lead">
+            수용인원: {{ store.max_guest }}명<br />
+            기본대관료: 100만원<br />
+            수익분배 방식: {{ store.contract_condition }}<br />
+            </p>
+            <p class="lead">
+            상세정보:
+            </p>
+            <p>
+            {{ store.description }}
+            </p>
+
+            <hr>
+
+            <p>실제정보와 다른가요? 개선사항 또는 정보불일치 리포트 및 개선/제안을 받습니다.</p>
+
+            <hr />
+            <!-- Blog Comments -->
+
+            <!-- Comments Form -->
+            <div class="well">
+                <h4>Leave a Comment:</h4>
+                <form enctype ="multipart/form-data" action="{% url 'review_new' store.pk %}" method="post">{% csrf_token %}
+                    {% bootstrap_form review_form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary"/>
+                        {% bootstrap_icon "ok-sign" %} 리뷰달기
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+
+            <hr>
+
+            <!-- Posted Comments -->
+
+            <!-- Comment -->
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">Start Bootstrap
+                        <small>August 25, 2014 at 9:30 PM</small>
+                    </h4>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+            </div>
+
+            <!-- Comment -->
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">Start Bootstrap
+                        <small>August 25, 2014 at 9:30 PM</small>
+                    </h4>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    <!-- Nested Comment -->
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://placehold.it/64x64" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">Nested Start Bootstrap
+                                <small>August 25, 2014 at 9:30 PM</small>
+                            </h4>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
+                    <!-- End Nested Comment -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Blog Sidebar Widgets Column -->
+
+
+
+
+        <div class="col-md-4">
+
+            <div class="well well-sm">
+            찾아오시는 길
+            </div>
+            <div id="map" style="width:100%; min-height:300px;">
+            </div>
+            <br />
+
+            <!-- 추천 스토어-->
+            <div class="well well-sm">
+            추천 호프
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem i totatque eveniet unde.</p>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem ipsum dolor sit eveniet unde.</p>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem ipsum dolor sit amet, c</p>
+                </div>
+            </div>
+            <br />
+
+            <!-- 대학별 추천 스토어-->
+            <div class="well well-sm">
+            {user.profile.university} 사람들이 검색한 호프집
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem i totatque eveniet unde.</p>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem ipsum dolor sit eveniet unde.</p>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem ipsum dolor sit amet, c</p>
+                </div>
+            </div>
+            <br />
+
+            <!-- 최근 검색 스토어-->
+            <div class="well well-sm">
+            최근 검색한 호프
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem i totatque eveniet unde.</p>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem ipsum dolor sit eveniet unde.</p>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#">
+                        <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7">
+                    <h4>Subheading</h4>
+                    <p>Lorem ipsum dolor sit amet, c</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block js %}
+<script>
+    var map;
+
+    function initMap() {
+    var myLatLng = {
+        lat: {{store.latitude}}, lng: {{store.longitude}}
+    };
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: {{store.latitude}}, lng: {{store.longitude}} },
+        zoom: 15
+    });
+
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Hello World!'
+        });
+    }
+</script>
+
+<script>
+$(document).ready(function(){
+    $("#favorite").click(function() {
+        var url = $(this).attr("href");
+
+        if (confirm("즐겨찾기에 추가합니다.")) {
+            $.ajax({
+                url: url,
+                method: "GET"
+            }).done(function() {
+                $("#favorite").removeClass('btn-default');
+                $("#favorite").addClass('btn-warning').text('즐겨찾기 등록완료');
+            });
+        };
+        return false;
+    });
+});
+</script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_vmxnOdj0JUnZKuncitGd1Jq0PD3ovSo&signed_in=true&region=KO&callback=initMap" async defer></script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+<!-- Page Content -->
+
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <div class="thumbnail">
-                    {% if store_image.first.image %}
-                    <img style="float:left; margin-left: -5px; max-width:600px; max-height:500px" src="{{ store_image.first.image.url }}"/>
-                    {% else %}
-                    <img style="float:left; margin: 0px 20px 20px 0;" src="http://placehold.it/400x300" />
-                    {% endif %}
+
                 </div>
                 <div class="caption-full" style="clear:both">
                     <h4 class="pull-right">$24.99</h4>
@@ -58,11 +436,33 @@
 
                     <hr>
 
+
+
+
+
+
+
                     {% for review in store.review_set.all %}
-                    <h3>{{review.author}}</h3>
-                    <h5>평점 : {{review.rating}}</h5>
-                    <p>{{review.content}}<p>
+                    <h3>{{ review.author }}</h3>
+                    <h5>평점 : {{ review.rating }}</h5>
+                    <p>{{ review.content }}<p>
                     {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="row">
                         <div class="col-md-12">
                             <span class="glyphicon glyphicon-star"></span>
@@ -115,24 +515,6 @@
                     <p class="lead">업체의 위치</p>
                     <div id="map" class="tab-pane fade in active" style="width:400px;height:300px;">
                     </div>
-                    <script>
-                    var map;
-                    function initMap() {
-
-                    var myLatLng = {lat: {{store.latitude}}, lng: {{store.longitude}}};
-                    map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: {{store.latitude}}, lng: {{store.longitude}}},
-                    zoom: 15
-                    });
-                    var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: 'Hello World!'
-                    });
-                    }
-                    </script>
-                    <script src="https://maps.googleapis.com/maps/api/js?&callback=initMap"
-                        async defer></script>
                 </div>
             </div>
 
@@ -148,40 +530,4 @@
     </div>
     <!-- /.container -->
 
-    {% if favorite_flag %}
-        <button class="btn btn-warning">즐겨찾기에 등록된 장소</button>
-    {% else %}
-        <button id="favorite" class="btn btn-default" href="{% url 'favorite_this_store' store.pk %}">즐겨찾기 추가하기</button>
-    {% endif %}
 
-
-{% endblock %}
-
-{% block js %}
-
-<script>
-$(document).ready(function(){
-    $("#favorite").click(function() {
-        var url = $(this).attr("href");
-
-        if (confirm("즐겨찾기에 추가합니다.")) {
-            $.ajax({
-                url: url,
-                method: "GET"
-            }).done(function() {
-                $("#favorite").removeClass('btn-default');
-                $("#favorite").addClass('btn-warning').text('즐겨찾기 등록완료');
-            });
-        };
-        return false;
-    });
-
-});
-</script>
-
-{% endblock %}
-
-
-</body>
-
-</html>

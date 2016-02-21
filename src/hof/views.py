@@ -28,7 +28,7 @@ def store_list(request):
         store_list = store_list.filter(
             (Q(gu__contains=query_where) |
             Q(region__contains=query_where) |
-            Q(address_contains=query_where)) &
+            Q(address__contains=query_where)) &
             Q(max_guest__gt=query_howmany) &
             (Q(name__contains=query_direct_search) |
             Q(atmosphere__contains=query_direct_search) |
@@ -65,16 +65,16 @@ def store_list(request):
 def store_detail(request, pk):
     store = get_object_or_404(Store, pk=pk)
     store_image = store.storeimage_set.all()
-    if store.is_active==True:
+    if store.is_active:
         context = {
             'store':store,
             'store_image':store_image,
             'review_form':ReviewForm(),
         }
         if store.profile_set.filter(user=request.user).exists():
-            context = {
+            context.update({
                 'favorite_flag':True,
-            }
+            })
         return render(request, 'hof/store_detail.html', context)
     else:
         messages.error(request, "업체를 확인중입니다. 승인 후에 실제로 홈페이지에 게시됩니다.")
