@@ -7,6 +7,13 @@ from onedayhof.utils import random_name_upload_to
 
 # this is important # CHOICES 향후 추가 필요함!
 
+MAX_GUEST_CHOICES = (
+    ('sizeA', '80명 미만'),
+    ('sizeB', '80 ~ 140명'),
+    ('sizeC', '140 ~ 200명'),
+    ('sizeD', '200명 이상'),
+)
+
 GU_CHOICES = (
     ('gwanak', '관악구'),
     ('seocho', '서초구'),
@@ -57,7 +64,7 @@ class Store(models.Model):
     is_active = models.BooleanField(default=False)
 
     #태그용. 1개씩밖에 선택 못함.
-    max_guest = models.PositiveSmallIntegerField()
+    max_guest = models.CharField(max_length=5, choices=MAX_GUEST_CHOICES, default='')
     gu = models.CharField(max_length=15, choices=GU_CHOICES, default='')
     region = models.CharField(max_length=15, choices=REGION_CHOICES, default='')
     atmosphere = models.CharField(max_length=15, choices=ATMOSPHERE_CHOICES, default='')
