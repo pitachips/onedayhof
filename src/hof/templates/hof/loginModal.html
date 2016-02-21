@@ -1,0 +1,36 @@
+  <!-- Modal -->
+<div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+        </div>
+
+        <div class="modal-body" style="padding:40px 50px;">
+            <form class="form" method="post" action="{% url 'login' %}">{% csrf_token %}
+                <div class="form-group">
+                  <label for="usrname"><span class="glyphicon glyphicon-user"></span> 아이디</label>
+                  <input type="text" class="form-control" name="username" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호</label>
+                  <input type="password" class="form-control" name="password" placeholder="Password" />
+                </div>
+                <button type="submit" class="btn btn-defualt"><span class="glyphicon glyphicon-off"></span> 로그인</button>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                <a class="btn btn-default" href="{% url 'signup_choice' %}">회원가입하기</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+

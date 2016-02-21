@@ -16,6 +16,20 @@
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.6/css/bootstrap.min.css' %}" />
 
     <!-- Custom CSS -->
+
+    <style>
+      .modal .modal-header, .modal h4, .modal .close {
+          background-color: #5cb85c;
+          color:white !important;
+          text-align: center;
+          font-size: 30px;
+      }
+      .modal .modal-footer {
+          background-color: #f9f9f9;
+      }
+  </style>
+
+
 {% block style %}
 {% endblock %}
 
@@ -28,6 +42,18 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
+<script src="{% static 'jquery-1.12.0.js' %}"></script>
+
+
+      <script>
+$(document).ready(function(){
+    $("#loginBtn").click(function(){
+        $("#loginModal").modal();
+    });
+});
+</script>
 
 
 </head>
@@ -66,7 +92,6 @@
     </footer>
 </div>
 
-<script src="{% static 'jquery-1.12.0.js' %}"></script>
 <script src="{% static 'bootstrap-3.3.6/js/bootstrap.min.js' %}"></script>
 
 

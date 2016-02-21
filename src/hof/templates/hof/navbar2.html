@@ -30,8 +30,12 @@
                 </ul>
                 {% else %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="#">회원가입</a></li>
+                    <li>
+                         <a href="#" id="loginBtn">로그인</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup_choice' %}">회원가입</a>
+                    </li>
                 </ul>
                 {% endif %}
 
@@ -52,3 +56,7 @@
         </div>
         <!-- /.container -->
     </nav>
+
+
+
+{% include 'hof/loginModal.html' %}
