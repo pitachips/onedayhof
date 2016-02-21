@@ -4,6 +4,7 @@
 
 {% block style %}
     <link href="{% static 'signup_choice.css' %}" rel="stylesheet">
+
 {% endblock %}
 
 
@@ -13,49 +14,39 @@
     <div class="container">
 
         <!-- Jumbotron Header -->
-        <header class="jumbotron hero-spacer">
-            <h1>A Warm Welcome!</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-            <p><a class="btn btn-primary btn-large">Call to action!</a>
+        <header class="jumbotron text-center">
+            <h1>일일호프, 원데이호프, 성공적</h1>
+            <p>간단한 회원가입절차만 거치면<br />바로 원데이호프를 이용할 수 있습니다. 환영합니다 :)</p>
             </p>
         </header>
 
-        <hr>
 
 
         <!-- Page Features -->
         <div class="row text-center">
 
-            <div class="col-md-3 col-sm-6 col-md-offset-3 hero-feature">
+            <div class="col-md-4 col-sm-6 col-md-offset-2 hero-feature">
                 <div class="thumbnail">
-                    <a href = "{% url 'signup' %}"><img src="http://placehold.it/800x500" alt=""></a>
                     <div class="caption">
                         <a href = "{% url 'signup' %}"><h3>일반회원 등록하기</h3></a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
                     </div>
+                    <a href = "{% url 'signup' %}"><img src="http://placehold.it/800x500" alt=""></a>
                 </div>
             </div>
 
 
-            <div class="col-md-3 col-sm-6 hero-feature">
+            <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <a href = "{% url 'owner_signup' %}"><img src="http://placehold.it/800x500" alt=""></a>
-                    <div class="caption">
+                <div class="caption">
                         <a href = "{% url 'owner_signup' %}"><h3>가게주인 등록하기</h3></a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
                     </div>
+                    <a href = "{% url 'owner_signup' %}"><img src="http://placehold.it/800x500" alt=""></a>
+
                 </div>
             </div>
         </div>
         <!-- /.row -->
 
-        <hr>
 
     </div>
     <!-- /.container -->

@@ -9,6 +9,7 @@ from hitcount.views import HitCountDetailView
 from .models import Store, StoreImage, Review, ReviewImage, REGION_CHOICES, MAX_GUEST_CHOICES
 from .forms import StoreForm, StoreImageForm, ReviewForm, ReviewImageForm
 from accounts.models import Profile
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def index(request):
     region_list = []
@@ -18,6 +19,11 @@ def index(request):
     max_guest_list = []
     for max_guest in MAX_GUEST_CHOICES:
         max_guest_list.append(max_guest[1])
+
+    # index_page_recommended_store_list = []
+    # for i in range(1, 10):
+    #     store = get_object_or_404(Store, is_index_page_recommended_store=i);
+    #     recommended_store_list.append(store)
 
     return render(request, 'hof/index.html', {'region_list':region_list, 'max_guest_list':max_guest_list, })
 
@@ -40,16 +46,68 @@ def store_list(request):
     query_direct_search = request.GET.get('direct_search')
 
 
-    if query_where or query_howmany or query_direct_search:
+    if query_where and query_howmany and query_direct_search:
         store_list = store_list.filter(
             (Q(gu__contains=query_where) |
             Q(region__contains=query_where) |
             Q(address__contains=query_where)) &
-            Q(max_guest__gt=query_howmany) &
+            Q(max_guest=query_howmany) &
             (Q(name__contains=query_direct_search) |
             Q(atmosphere__contains=query_direct_search) |
             Q(description__contains=query_direct_search))
         )
+    elif query_where and query_howmany and not query_direct_search:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where) |
+            Q(address__contains=query_where)) &
+            Q(max_guest=query_howmany)
+        )
+    elif query_where and not query_howmany and query_direct_search:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where) |
+            Q(address__contains=query_where)) &
+            (Q(name__contains=query_direct_search) |
+            Q(atmosphere__contains=query_direct_search) |
+            Q(description__contains=query_direct_search))
+        )
+    elif not query_where and query_howmany and query_direct_search:
+        store_list = store_list.filter(
+            Q(max_guest=query_howmany) &
+            (Q(name__contains=query_direct_search) |
+            Q(atmosphere__contains=query_direct_search) |
+            Q(description__contains=query_direct_search))
+        )
+    elif query_where and not query_howmany and not query_direct_search:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where) |
+            Q(address__contains=query_where))
+        )
+    elif not query_where and query_howmany and not query_direct_search:
+        store_list = store_list.filter(
+            Q(max_guest=query_howmany)
+        )
+    elif not query_where and not query_howmany and query_direct_search:
+        store_list = store_list.filter(
+            (Q(name__contains=query_direct_search) |
+            Q(atmosphere__contains=query_direct_search) |
+            Q(description__contains=query_direct_search))
+        )
+    else:
+        pass
+
+    # if query_where or query_howmany or query_direct_search:
+    #     store_list = store_list.filter(
+    #         (Q(gu__contains=query_where) |
+    #         Q(region__contains=query_where) |
+    #         Q(address__contains=query_where)) &
+    #         Q(max_guest=query_howmany) &
+    #         (Q(name__contains=query_direct_search) |
+    #         Q(atmosphere__contains=query_direct_search) |
+    #         Q(description__contains=query_direct_search))
+    #     )
 
 
     # if query_where and query_howmany:
@@ -74,7 +132,19 @@ def store_list(request):
     # else:
     #     pass
 
-    return render(request, 'hof/store_list.html', {'store_list':store_list, 'region_list':region_list, 'max_guest_list':max_guest_list, })
+    #페이지네이션 파트
+    paginator = Paginator(store_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        stores = paginator.page(page)
+    except PageNotAnInteger:
+        stores = paginator.page(1)
+    except EmptyPage:
+        stores = paginator.page(paginator.num_pages)
+
+
+    return render(request, 'hof/store_list.html', {'region_list':region_list, 'max_guest_list':max_guest_list, 'stores':stores, })
 
 
 @login_required
