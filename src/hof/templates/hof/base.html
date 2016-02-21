@@ -46,13 +46,32 @@
 
 <script src="{% static 'jquery-1.12.0.js' %}"></script>
 
-
-      <script>
+<script>
 $(document).ready(function(){
     $("#loginBtn").click(function(){
         $("#loginModal").modal();
     });
 });
+</script>
+
+<script>
+
+$(document).ready(function(){
+
+    $("#where").focusin(function(){
+        $('#region_list').show();
+    });
+
+    $('.region_choice').click(function(){
+        var regionChoice = $(this).val();
+        console.log('hi');
+        $('#where').val(regionChoice);
+        $('#region_list').hide();
+    });
+
+
+});
+
 </script>
 
 

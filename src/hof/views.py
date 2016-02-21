@@ -6,17 +6,23 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from hitcount.views import HitCountDetailView
 
-from .models import Store, StoreImage, Review, ReviewImage
+from .models import Store, StoreImage, Review, ReviewImage, GU_CHOICES
 from .forms import StoreForm, StoreImageForm, ReviewForm, ReviewImageForm
 from accounts.models import Profile
 
 def index(request):
-    return render(request, 'hof/index.html', {})
+    region_list = []
+    for region in GU_CHOICES:
+        region_list.append(region[1])
+    return render(request, 'hof/index.html', {'region_list':region_list, })
 
 
 @login_required
 def store_list(request):
     store_list = Store.objects.all().order_by('-rating')
+    region_list = []
+    for region in GU_CHOICES:
+        region_list.append(region[1])
 
     ## 검색파트
     query_where = request.GET.get('where')
@@ -58,7 +64,7 @@ def store_list(request):
     # else:
     #     pass
 
-    return render(request, 'hof/store_list.html', {'store_list':store_list, })
+    return render(request, 'hof/store_list.html', {'store_list':store_list, 'region_list':region_list, })
 
 
 @login_required
