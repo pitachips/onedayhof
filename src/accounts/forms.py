@@ -11,11 +11,14 @@ def phone_validator(value):
 
 
 class SignupForm(UserCreationForm):
+    username = forms.CharField(label='아이디')
+    password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='비밀번호 확인', widget=forms.PasswordInput)
+    school = forms.CharField(label='대학이름')
+    major = forms.CharField(label='소속', widget=forms.TextInput(attrs={'placeholder': '본인이 속한 단과대학이나 동아리 이름을 적어주세요.'}))
     is_agree = forms.BooleanField(label='약관동의', error_messages={
         'required' : '약관동의를 해주셔야 가입이 됩니다.',
-        })
-    school = forms.CharField()
-    major = forms.CharField()
+    })
 
     def save(self, commit=True):
         user = super(SignupForm, self).save(commit=False)
@@ -29,10 +32,14 @@ class SignupForm(UserCreationForm):
 
 
 class OwnerSignupForm(UserCreationForm):
+    username = forms.CharField(label='아이디')
+    password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='비밀번호 확인', widget=forms.PasswordInput)
+    phone = forms.CharField(label='휴대폰 번호', widget=forms.TextInput(attrs={'placeholder': '연락가능한 번호를 적어주세요'}), validators=[phone_validator])
     is_agree = forms.BooleanField(label='약관동의', error_messages={
         'required' : '약관동의를 해주셔야 가입이 됩니다.',
-        })
-    phone = forms.CharField(validators=[phone_validator])
+    })
+
 
     def save(self, commit=True):
         user = super(OwnerSignupForm, self).save(commit=False)

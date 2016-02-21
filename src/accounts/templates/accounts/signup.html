@@ -16,12 +16,11 @@
         <form method="post" action="">{% csrf_token %}
             {% bootstrap_form form %}
 
+            <hr />
             {% buttons %}
                 <button type="submit" class="btn btn-primary">{% bootstrap_icon "ok-sign" %} 회원가입 </button>
             {% endbuttons %}
         </form>
-        <hr />
-        <a class="btn btn-default" href="{% url 'index' %}">메인화면</a>
     </div>
     </div>
 </div>
