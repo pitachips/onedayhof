@@ -45,7 +45,7 @@ def store_list(request):
     query_direct_search = request.GET.get('direct_search')
 
 
-    if query_where or query_howmany or query_direct_search:
+    if query_where and query_howmany and query_direct_search:
         store_list = store_list.filter(
             (Q(gu__contains=query_where) |
             Q(region__contains=query_where) |
@@ -55,6 +55,58 @@ def store_list(request):
             Q(atmosphere__contains=query_direct_search) |
             Q(description__contains=query_direct_search))
         )
+    elif query_where and query_howmany and not query_direct_search:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where) |
+            Q(address__contains=query_where)) &
+            Q(max_guest=query_howmany)
+        )
+    elif query_where and not query_howmany and query_direct_search:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where) |
+            Q(address__contains=query_where)) &
+            (Q(name__contains=query_direct_search) |
+            Q(atmosphere__contains=query_direct_search) |
+            Q(description__contains=query_direct_search))
+        )
+    elif not query_where and query_howmany and query_direct_search:
+        store_list = store_list.filter(
+            Q(max_guest=query_howmany) &
+            (Q(name__contains=query_direct_search) |
+            Q(atmosphere__contains=query_direct_search) |
+            Q(description__contains=query_direct_search))
+        )
+    elif query_where and not query_howmany and not query_direct_search:
+        store_list = store_list.filter(
+            (Q(gu__contains=query_where) |
+            Q(region__contains=query_where) |
+            Q(address__contains=query_where))
+        )
+    elif not query_where and query_howmany and not query_direct_search:
+        store_list = store_list.filter(
+            Q(max_guest=query_howmany)
+        )
+    elif not query_where and not query_howmany and query_direct_search:
+        store_list = store_list.filter(
+            (Q(name__contains=query_direct_search) |
+            Q(atmosphere__contains=query_direct_search) |
+            Q(description__contains=query_direct_search))
+        )
+    else:
+        pass
+
+    # if query_where or query_howmany or query_direct_search:
+    #     store_list = store_list.filter(
+    #         (Q(gu__contains=query_where) |
+    #         Q(region__contains=query_where) |
+    #         Q(address__contains=query_where)) &
+    #         Q(max_guest=query_howmany) &
+    #         (Q(name__contains=query_direct_search) |
+    #         Q(atmosphere__contains=query_direct_search) |
+    #         Q(description__contains=query_direct_search))
+    #     )
 
 
     # if query_where and query_howmany:
