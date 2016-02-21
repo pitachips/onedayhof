@@ -32,7 +32,7 @@
 
             <div class="col-md-8">
             <!-- Project One -->
-                {% for store in store_list %}
+                {% for store in stores %}
                     <div class="row">
                         <div class="col-md-5">
                             <a href="{% url 'store_detail' pk=store.pk %}">
@@ -53,6 +53,20 @@
 
                     <hr>
                 {% endfor %}
+
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if stores.has_previous %}
+                            <a href="?page={{ stores.previous_page_number }}&where={{ request.GET.where }}&what={{ request.GET.what }}">previous</a>
+                        {% endif %}
+                        <span class="current">
+                            Page {{ stores.number }} of {{ stores.paginator.num_pages }}.
+                        </span>
+                        {% if stores.has_next %}
+                            <a href="?page={{ stores.next_page_number }}&where={{ request.GET.where }}&what={{ request.GET.what }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
 
 
             </div>

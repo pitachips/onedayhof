@@ -9,6 +9,7 @@ from hitcount.views import HitCountDetailView
 from .models import Store, StoreImage, Review, ReviewImage, REGION_CHOICES, MAX_GUEST_CHOICES
 from .forms import StoreForm, StoreImageForm, ReviewForm, ReviewImageForm
 from accounts.models import Profile
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def index(request):
     region_list = []
@@ -131,7 +132,19 @@ def store_list(request):
     # else:
     #     pass
 
-    return render(request, 'hof/store_list.html', {'store_list':store_list, 'region_list':region_list, 'max_guest_list':max_guest_list, })
+    #페이지네이션 파트
+    paginator = Paginator(store_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        stores = paginator.page(page)
+    except PageNotAnInteger:
+        stores = paginator.page(1)
+    except EmptyPage:
+        stores = paginator.page(paginator.num_pages)
+
+
+    return render(request, 'hof/store_list.html', {'region_list':region_list, 'max_guest_list':max_guest_list, 'stores':stores, })
 
 
 @login_required
