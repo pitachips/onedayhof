@@ -84,8 +84,16 @@
 })(jQuery);
 </script>
 
-<div>
-    <input type="text" placeholder="검색어" id="query_{{ id }}" class="form-control" />
-    <a class="btn btn-default" id="query_submit_{{ id }}">검색</a>
-</div>
+<label class="control-label" for="query_{{ id }}">지도 상 위치 표시</label>
+<div id="map_search" class="input-group">
+  <input type="text" placeholder="클릭하면 위에 입력한 주소가 자동으로 입력됩니다. 검색버튼을 눌러 지도 상 위치를 확인해주세요." id="query_{{ id }}" class="form-control" />
+  <span class="input-group-btn">
+  <button class="btn btn-default" type="button" id="query_submit_{{ id }}">검색</button>
+  </span>
+</div><!-- /input-group -->
+<br />
 <div id="map_canvas_{{ id }}" style="width: {{ width }}; height: {{ height }};">map loading ...</div>
+<br />
+
+
+

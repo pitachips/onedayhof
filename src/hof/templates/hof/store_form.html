@@ -25,17 +25,20 @@
 
 <div class="container">
     <div class="row">
+    <div class="col-sm-8 col-sm-offset-2 text-center">
+        <h2><mark>업체정보를 등록해주세요</mark></h2>
+    </div>
+
     <div class="col-sm-8 col-sm-offset-2">
         <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
             {% bootstrap_form storeForm %}
             {% bootstrap_formset formset %}
 
+            <hr />
             {% buttons %}
                 <button type="submit" class="btn btn-primary">{% bootstrap_icon "ok-sign" %} 업체 등록하기</button>
             {% endbuttons %}
         </form>
-        <hr />
-        <a class="btn btn-default" href="{% url 'index' %}">메인화면</a>
     </div>
     </div>
 </div>
@@ -60,6 +63,16 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+$(document).ready(function(){
+    $('#map_search').children('input').click(function(){
+        var address = $('#id_address').val();
+        $(this).val(address);
+        alert('검색 버튼을 꼭 눌러서 확인해주세요');
+    })
+});
+</script>
 
 
 {% endblock %}
+

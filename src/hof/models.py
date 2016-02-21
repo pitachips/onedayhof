@@ -68,26 +68,26 @@ ATMOSPHERE_CHOICES = (
 
 class Store(models.Model):
 
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, verbose_name='업체이름')
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, default='1')
-    contract_condition = models.TextField()
-    tel = models.CharField(max_length=20)
-    address = models.CharField(max_length=120)
+    contract_condition = models.TextField(verbose_name='계약조건/분배조건')
+    tel = models.CharField(max_length=20, verbose_name='업체 전화번호')
+    address = models.CharField(max_length=120, verbose_name='주소')
     latitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
 
-    menu = models.TextField(blank=True, default='')
+    menu = models.TextField(blank=True, default='', verbose_name='주요 메뉴와 가격')
     rating = models.PositiveSmallIntegerField(blank=True, default=0)
     n_review = models.PositiveSmallIntegerField(default=0, blank=True)
-    description = models.TextField(blank=True, default='')
+    description = models.TextField(blank=True, default='', verbose_name='상세조건 및 기타')
     is_active = models.BooleanField(default=False)
     is_index_page_recommended_store = models.PositiveSmallIntegerField(unique=True, validators=[MinValueValidator(0), MaxValueValidator(9)], blank=True, null=True)
 
     #태그용. 1개씩밖에 선택 못함.
-    max_guest = models.CharField(max_length=5, choices=MAX_GUEST_CHOICES, default='')
-    gu = models.CharField(max_length=15, choices=GU_CHOICES, default='')
-    region = models.CharField(max_length=15, choices=REGION_CHOICES, default='')
-    atmosphere = models.CharField(max_length=15, choices=ATMOSPHERE_CHOICES, default='')
+    max_guest = models.CharField(max_length=5, choices=MAX_GUEST_CHOICES, default='', verbose_name='수용가능 인원수')
+    gu = models.CharField(max_length=15, choices=GU_CHOICES, default='', verbose_name='업체위치 1')
+    region = models.CharField(max_length=15, choices=REGION_CHOICES, default='', verbose_name='업체위치 2')
+    atmosphere = models.CharField(max_length=15, choices=ATMOSPHERE_CHOICES, default='', verbose_name='매장 분위기')
 
 
     def __str__(self):
@@ -96,15 +96,15 @@ class Store(models.Model):
 
 class StoreImage(models.Model):
     store = models.ForeignKey(Store, default=None)
-    image = models.ImageField(upload_to=random_name_upload_to)
+    image = models.ImageField(upload_to=random_name_upload_to, verbose_name='사진 업로드')
 
 
 
 class Review(models.Model):
     store = models.ForeignKey(Store)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, default='1')
-    rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    content = models.TextField()
+    rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)], verbose_name='평점주기')
+    content = models.TextField(verbose_name='댓글달기')
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     def __str__(self):
@@ -113,4 +113,4 @@ class Review(models.Model):
 
 class ReviewImage(models.Model):
     review = models.ForeignKey(Review, default=None)
-    image = models.ImageField(blank=True, null=True, upload_to=random_name_upload_to)
+    image = models.ImageField(blank=True, null=True, upload_to=random_name_upload_to, verbose_name='사진 업로드')

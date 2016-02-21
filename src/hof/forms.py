@@ -8,7 +8,7 @@ class StoreForm(forms.ModelForm):
 
     class Meta:
         model = Store
-        fields = ('name', 'contract_condition', 'tel', 'address', 'max_guest', 'menu', 'description', 'gu', 'region', 'atmosphere', )
+        fields = ('name', 'tel', 'address', 'gu', 'region', 'lnglat', 'menu','contract_condition', 'description', 'max_guest', 'atmosphere', )
         widgets = {
             'gu': forms.RadioSelect(attrs={'style':'display: none'}),
             'region': forms.RadioSelect(attrs={'style':'display: none'}),
