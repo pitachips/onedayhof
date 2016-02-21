@@ -60,10 +60,10 @@ footer {
                 <h4 style="display: inline-block;">{{ store.get_atmosphere_display }}</h4>
                 <h5>{{ store.address }}</h5>
                 <p>
-                <button class="btn btn-xs btn-primary">{{ store.get_gu_display }}</button >
-                <button class="btn btn-xs btn-primary">{{ store.get_region_display }}</button >
-                <button class="btn btn-xs btn-primary">{{ store.max_guest }}명</button >
-                <button class="btn btn-xs btn-primary">{{ store.get_atmosphere_display }}</button>
+                <button class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where={{ store.gu }}&howmany=&direct_search=">{{ store.get_gu_display }}</button >
+                <button class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where={{ store.region }}&howmany=&direct_search=">{{ store.get_region_display }}</button >
+                <button class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where=&howmany={{ store.max_guest }}&direct_search=">{{ store.max_guest }}명</button >
+                <button class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where=&howmany=&direct_search={{ store.get_atmosphere_display }}">{{ store.get_atmosphere_display }}</button>
                 </p>
             </div>
             <div class="col-md-6">
