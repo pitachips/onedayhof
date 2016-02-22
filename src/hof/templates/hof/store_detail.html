@@ -147,7 +147,6 @@ footer {
 
             <!-- Comments Form -->
             <div class="well">
-                <h4>Leave a Comment:</h4>
                 <form enctype ="multipart/form-data" action="{% url 'review_new' store.pk %}" method="post">{% csrf_token %}
                     {% bootstrap_form review_form %}
                     {% buttons %}

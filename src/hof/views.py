@@ -45,11 +45,6 @@ def store_list(request):
     query_howmany = request.GET.get('howmany')
     query_direct_search = request.GET.get('direct_search')
 
-    print(query_where)
-    print(query_howmany)
-    print(query_direct_search)
-
-
     if query_where and query_howmany and query_direct_search:
         store_list = store_list.filter(
             (Q(gu__contains=query_where) |

@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Store, StoreImage, Review, ReviewImage
 from .widgets import PointWidget
@@ -13,7 +14,6 @@ class StoreForm(forms.ModelForm):
             'gu': forms.RadioSelect(attrs={'style':'display: none'}),
             'region': forms.RadioSelect(attrs={'style':'display: none'}),
             'atmosphere': forms.RadioSelect(attrs={'style':'display: none'}),
-            'intro': forms.Textarea(attrs={'style':'resize:none; width:500px; height:100px;', }),
             # 'lnglat': PointWidget,
         }
 
@@ -37,6 +37,9 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ('rating', 'content')
+        widgets = {
+            'content': forms.Textarea(attrs={'style':'resize:none;', 'rows':4, 'placeholder':'평가와 후기를 남겨주세요' })
+        }
 
 
 class ReviewImageForm(forms.ModelForm):
