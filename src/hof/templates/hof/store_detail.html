@@ -3,6 +3,7 @@
 {% load bootstrap3 %}
 
 {% block style %}
+<link rel="stylesheet" href="{% static 'woothemes-FlexSlider-9a419a0/flexslider.css' %}" type="text/css">
 <link rel="stylesheet" href="{% static 'store_detail.css' %}" />
 <style>
 .navbar-form, .text-align-center {
@@ -36,10 +37,26 @@ footer {
     margin: 50px 0;
 }
 
+.flex-viewport {
+    max-height: 400px;
+}
+
+.flex-control-thumbs li {
+    width: 16.6666%;
+}
+
+.flex-direction-nav a {
+    top: 41%;
+}
+
 </style>
+
 {% endblock %}
 
 
+{% block headjs %}
+    <script src="{% static 'woothemes-FlexSlider-9a419a0/jquery.flexslider-min.js' %}"></script>
+{% endblock %}
 
 {% block navbar %}
     {% include 'hof/navbar2.html' %}
@@ -117,32 +134,56 @@ footer {
         <div class="col-md-8">
 
             <!-- Preview Image -->
-            {% if store_image.first.image %}
+
+            <div class="flexslider">
+              <ul class="slides">
+                <li data-thumb="{% static 'img/ex1.jpg' %}">
+                  <img src="{% static 'img/ex1.jpg' %}" />
+                </li>
+                <li data-thumb="{% static 'img/ex2.jpg' %}">
+                  <img src="{% static 'img/ex2.jpg' %}" />
+                </li>
+                <li data-thumb="{% static 'img/ex1.jpg' %}">
+                  <img src="{% static 'img/ex1.jpg' %}" />
+                </li>
+                <li data-thumb="{% static 'img/ex2.jpg' %}">
+                  <img src="{% static 'img/ex2.jpg' %}" />
+                </li>
+                <li data-thumb="{% static 'img/ex1.jpg' %}">
+                  <img src="{% static 'img/ex1.jpg' %}" />
+                </li>
+                <li data-thumb="{% static 'img/ex2.jpg' %}">
+                  <img src="{% static 'img/ex2.jpg' %}" />
+                </li>
+              </ul>
+            </div>
+
+<!--             {% if store_image.first.image %}
                 <img class="img-responsive" src="{{ store_image.first.image.url }}"/>
             {% else %}
                 <img class="img-responsive" src="http://placehold.it/900x500" alt="">
             {% endif %}
-
+ -->
             <hr>
 
             <!-- Post Content -->
             <table class="table table-bordered">
                 <tbody>
-                  <tr>
-                    <td>수용인원</td>
-                    <td>{{ store.get_max_guest_display }}</td>
+                  <tr class="something">
+                    <td class="col-md-2">수용인원</td>
+                    <td class="col-md-10">{{ store.get_max_guest_display }}</td>
                   </tr>
-                  <tr>
-                    <td>계약조건</td>
-                    <td>{{ store.contract_condition }}</td>
+                  <tr class="something">
+                    <td class="col-md-2">계약조건</td>
+                    <td class="col-md-10">{{ store.contract_condition }}</td>
                   </tr>
-                  <tr>
-                    <td>메뉴</td>
-                    <td>{{ store.menu }}</td>
+                  <tr class="something">
+                    <td class="col-md-2">메뉴</td>
+                    <td class="col-md-10">{{ store.menu }}</td>
                   </tr>
-                  <tr>
-                    <td>상세설명</td>
-                    <td>{{ store.description }}</td>
+                  <tr class="something">
+                    <td class="col-md-2">상세설명</td>
+                    <td class="col-md-10">{{ store.description }}</td>
                   </tr>
                 </tbody>
             </table>
@@ -400,6 +441,17 @@ $(document).ready(function(){
 });
 </script>
 
+<script type="text/javascript">
+    $(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+  });
+});
+
+</script>
+
+
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_vmxnOdj0JUnZKuncitGd1Jq0PD3ovSo&signed_in=true&region=KO&callback=initMap" async defer></script>
 
@@ -407,159 +459,5 @@ $(document).ready(function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---------------------------------------
-
-
-
-
-
-<!-- Page Content -->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="thumbnail">
-
-                </div>
-                <div class="caption-full" style="clear:both">
-                    <h4 class="pull-right">$24.99</h4>
-                    <h4><a href="#">Product Name</a>
-                    </h4>
-                </div>
-                <div class="ratings">
-                    <p class="pull-right">3 reviews</p>
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        4.0 stars
-                    </p>
-                </div>
-
-                <div class="well">
-
-                    <div class="text-right">
-                        <form enctype ="multipart/form-data" action="{% url 'review_new' store.pk %}" method="post">
-                        {% csrf_token %}
-                        {{ review_form }}
-                        <input type="submit" value="리뷰 달기" class="btn btn-block btn-primary"/>
-                   </form>
-                    </div>
-
-                    <hr>
-
-
-
-
-
-
-
-                    {% for review in store.review_set.all %}
-                    <h3>{{ review.author }}</h3>
-                    <h5>평점 : {{ review.rating }}</h5>
-                    <p>{{ review.content }}<p>
-                    {% endfor %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">10 days ago</span>
-                            <p>This product was great in terms of quality. I would definitely buy another!</p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">12 days ago</span>
-                            <p>I've alredy ordered another one!</p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">15 days ago</span>
-                            <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="tab-content">
-                    <p class="lead">업체의 위치</p>
-                    <div id="map" class="tab-pane fade in active" style="width:400px;height:300px;">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-    <!-- /.container -->
-
-    <div class="container">
-
-        <hr>
-
-    </div>
-    <!-- /.container -->
 
 
