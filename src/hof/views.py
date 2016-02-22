@@ -208,7 +208,7 @@ def store_delete(request, pk):
 
     store.delete()
     messages.error(request, "업체가 삭제되었습니다.")
-    return redirect("hof:index")
+    return redirect("index")
 
 
 @login_required
