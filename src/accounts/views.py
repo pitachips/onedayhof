@@ -57,7 +57,8 @@ def owner_signup(request):
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    user = get_object_or_404(User, pk=request.user.pk)
+    return render(request, 'accounts/profile.html', {'user': user})
 
 
 # 찜목록
@@ -65,6 +66,12 @@ def profile(request):
 def favorite_list(request):
     user = get_object_or_404(User, pk=request.user.pk)
     favorites = user.profile.favorites.all()
-    print(favorites)
     return render(request, 'accounts/favorite_list.html', {'favorites': favorites})
 
+
+# 내가 등록한 가게
+@login_required
+def mystore_list(request):
+    user = get_object_or_404(User, pk=request.user.pk)
+    stores = user.store_set.all()
+    return render(request, 'accounts/mystore_list.html', {'stores': stores})

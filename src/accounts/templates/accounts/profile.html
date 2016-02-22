@@ -8,7 +8,30 @@
 
 
 {% block content %}
-
-<a href="{% url 'password_change' %}"><h1>this is accounts/profile.html</h1></a>
-
+    <div class="container">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>아이디</td>
+                    <td>{{ user.username }}</td>
+                </tr>
+                {% if user.profile.is_store_owner == True %}
+                <tr>
+                    <td>전화번호</td>
+                    <td>{{ user.profile.phone }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td>학교</td>
+                    <td>{{ user.profile.school }}</td>
+                </tr>
+                <tr>
+                    <td>소속</td>
+                    <td>{{ store.profile.major }}</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <a href="{% url 'password_change' %}" class="btn btn-xs btn-primary"><h5>비밀번호 변경</h5></a>
+    </div>
 {% endblock %}

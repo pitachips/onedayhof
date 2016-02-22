@@ -28,6 +28,9 @@
                                 <a href="{% url 'profile' %}">마이페이지</a>
                             </li>
                             <li>
+                                <a href="{% url 'mystore_list' %}">내가 등록한 가게</a>
+                            </li>
+                            <li>
                                 <a href="{% url 'logout' %}?next=/">로그아웃</a>
                             </li>
                             {% else %}
