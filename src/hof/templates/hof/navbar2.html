@@ -23,13 +23,23 @@
                             <li>
                                 <a href="{% url 'store_new' %}">업체 등록하기</a>
                             </li>
-                            {% endif %}
                             <li>
                                 <a href="{% url 'profile' %}">마이페이지</a>
                             </li>
                             <li>
                                 <a href="{% url 'logout' %}?next=/">로그아웃</a>
                             </li>
+                            {% else %}
+                            <li>
+                                <a href="{% url 'profile' %}">마이페이지</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'favorite_list' pk=user.pk %}">찜목록</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}?next=/">로그아웃</a>
+                            </li>
+                            {% endif %}
                         </ul>
                     </li>
                 </ul>
