@@ -45,6 +45,10 @@ def store_list(request):
     query_howmany = request.GET.get('howmany')
     query_direct_search = request.GET.get('direct_search')
 
+    print(query_where)
+    print(query_howmany)
+    print(query_direct_search)
+
 
     if query_where and query_howmany and query_direct_search:
         store_list = store_list.filter(
@@ -98,39 +102,6 @@ def store_list(request):
     else:
         pass
 
-    # if query_where or query_howmany or query_direct_search:
-    #     store_list = store_list.filter(
-    #         (Q(gu__contains=query_where) |
-    #         Q(region__contains=query_where) |
-    #         Q(address__contains=query_where)) &
-    #         Q(max_guest=query_howmany) &
-    #         (Q(name__contains=query_direct_search) |
-    #         Q(atmosphere__contains=query_direct_search) |
-    #         Q(description__contains=query_direct_search))
-    #     )
-
-
-    # if query_where and query_howmany:
-    #     store_list = store_list.filter(
-    #         (Q(gu__contains=query_where) |
-    #         Q(region__contains=query_where)) &
-    #         (Q(atmosphere__contains=query_howmany) |
-    #         Q(description__contains=query_howmany) |
-    #         Q(contract_condition__contains=query_howmany))
-    #     ).distinct()
-    # elif query_where and not query_howmany:
-    #     store_list = store_list.filter(
-    #         (Q(gu__contains=query_where) |
-    #         Q(region__contains=query_where))
-    #     ).distinct()
-    # elif not query_where and query_howmany:
-    #     store_list = store_list.filter(
-    #         (Q(atmosphere__contains=query_howmany) |
-    #         Q(description__contains=query_howmany) |
-    #         Q(contract_condition__contains=query_howmany))
-    #     ).distinct()
-    # else:
-    #     pass
 
     #페이지네이션 파트
     paginator = Paginator(store_list, 10)

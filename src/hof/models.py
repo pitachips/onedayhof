@@ -8,66 +8,66 @@ from onedayhof.utils import random_name_upload_to
 # this is important # CHOICES 향후 추가 필요함!
 
 MAX_GUEST_CHOICES = (
-    ('sizeA', '80명 미만'),
-    ('sizeB', '80 ~ 140명'),
-    ('sizeC', '140 ~ 200명'),
-    ('sizeD', '200명 이상'),
+    ('80명 미만', '80명 미만'),
+    ('80 ~ 140명', '80 ~ 140명'),
+    ('140 ~ 200명', '140 ~ 200명'),
+    ('200명 이상', '200명 이상'),
 )
 
 GU_CHOICES = (
-    ('gangdong', '강동구'),
-    ('gangbuk', '강북구'),
-    ('gangseo', '강서구'),
-    ('gwangjin', '광진구'),
-    ('guro', '구로구'),
-    ('nowon', '노원구'),
-    ('dobong', '도봉구'),
-    ('dongdaemun', '동대문구'),
-    ('dongjak', '동작구'),
-    ('mapo','마포구'),
-    ('seodaemun','서대문구'),
-    ('seongdong','성동구'),
-    ('seongbuk','성북구'),
-    ('songpa','송파구'),
-    ('yangcheon','양천구'),
-    ('yeongdeungpo','영등포구'),
-    ('yongsan','용산구'),
-    ('eunpyeong','은평구'),
-    ('jongno','종로구'),
-    ('gwanak', '관악구'),
-    ('seocho', '서초구'),
-    ('joongrang', '중랑구'),
-    ('gumcheon', '금천구'),
-    ('gangnam', '강남구'),
-    ('joong', '중구'),
-    ('etc_gu','그외 지역'),
+    ('강동구', '강동구'),
+    ('강북구', '강북구'),
+    ('강서구', '강서구'),
+    ('광진구', '광진구'),
+    ('구로구', '구로구'),
+    ('노원구', '노원구'),
+    ('도봉구', '도봉구'),
+    ('동대문구', '동대문구'),
+    ('동작구', '동작구'),
+    ('마포구','마포구'),
+    ('서대문구','서대문구'),
+    ('성동구','성동구'),
+    ('성북구','성북구'),
+    ('송파구','송파구'),
+    ('양천구','양천구'),
+    ('영등포구','영등포구'),
+    ('용산구','용산구'),
+    ('은평구','은평구'),
+    ('종로구','종로구'),
+    ('관악구', '관악구'),
+    ('서초구', '서초구'),
+    ('중랑구', '중랑구'),
+    ('금천구', '금천구'),
+    ('강남구', '강남구'),
+    ('중구', '중구'),
+    ('그외 지역','그외 지역'),
 )
 
 REGION_CHOICES = (
-    ('hongdae', '홍대/신촌'),
-    ('hoegi', '회기/강북'),
-    ('apgujeong', '압구정'),
-    ('sinsa', '신사/논현'),
-    ('seolib', '서울대'),
-    ('hyehwa', '혜화/대학로'),
-    ('gyodae', '교대/강남'),
-    ('sinlim', '신림'),
-    ('sadang', '사당/이수'),
-    ('itaewon', '이태원용산'),
-    ('guro', '구로/영등포'),
-    ('jongro', '종로/명동'),
-    ('jamsil', '잠실/송파'),
-    ('gundae', '건대/강변'),
-    ('etc_region','기타지역'),
+    ('홍대/신촌', '홍대/신촌'),
+    ('회기/강북', '회기/강북'),
+    ('압구정', '압구정'),
+    ('신사', '신사/논현'),
+    ('서울대', '서울대'),
+    ('혜화/대학로', '혜화/대학로'),
+    ('교대/강남', '교대/강남'),
+    ('신림', '신림'),
+    ('사당/이수', '사당/이수'),
+    ('이태원/용산', '이태원/용산'),
+    ('구로/영등포', '구로/영등포'),
+    ('종로/명동', '종로/명동'),
+    ('잠실/송파', '잠실/송파'),
+    ('건대/강변', '건대/강변'),
+    ('기타지역','기타지역'),
 )
 
 ATMOSPHERE_CHOICES = (
-    ('ordinary', '일반호프집'),
-    ('club ', '클럽(오픈 플로어)'),
-    ('bar', '바 형태'),
-    ('gamsung', '감성주점 느낌'),
-    ('traditional', '전통주점 스타일'),
-    ('etc_atmosphere','기타'),
+    ('일반호프집', '일반호프집'),
+    ('클럽(오픈 플로어)', '클럽(오픈 플로어)'),
+    ('바 형태', '바 형태'),
+    ('감성주점 느낌', '감성주점 느낌'),
+    ('전통주점 스타일', '전통주점 스타일'),
+    ('기타','기타'),
 )
 
 class Store(models.Model):
@@ -88,9 +88,9 @@ class Store(models.Model):
     is_index_page_recommended_store = models.PositiveSmallIntegerField(unique=True, validators=[MinValueValidator(0), MaxValueValidator(9)], blank=True, null=True)
 
     #태그용. 1개씩밖에 선택 못함.
-    max_guest = models.CharField(max_length=5, choices=MAX_GUEST_CHOICES, default='', verbose_name='수용가능 인원수')
-    gu = models.CharField(max_length=15, choices=GU_CHOICES, default='', verbose_name='업체위치 1')
-    region = models.CharField(max_length=15, choices=REGION_CHOICES, default='', verbose_name='업체위치 2')
+    max_guest = models.CharField(max_length=10, choices=MAX_GUEST_CHOICES, default='', verbose_name='수용가능 인원수')
+    gu = models.CharField(max_length=5, choices=GU_CHOICES, default='', verbose_name='업체위치 1')
+    region = models.CharField(max_length=8, choices=REGION_CHOICES, default='', verbose_name='업체위치 2')
     atmosphere = models.CharField(max_length=15, choices=ATMOSPHERE_CHOICES, default='', verbose_name='매장 분위기')
 
 

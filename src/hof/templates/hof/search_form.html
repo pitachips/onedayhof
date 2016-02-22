@@ -6,7 +6,7 @@
       <input type="text" id="howmany" name="howmany" class="form-control" placeholder="인원수 선택" value="{{ request.GET.howmany }}" />
     </div>
     <div class="form-group">
-      <input type="text" id="direct_search" name="direct_search" class="form-control" placeholder="직접 검색" value="{{ request.GET.direct_serach }}" />
+      <input type="text" id="direct_search" name="direct_search" class="form-control" placeholder="직접 검색" value="{{ query_direct_search }}" />
     </div>
     <input href="{% url 'store_list' %}?where={{ query_where }}&howmany={{ query_howmany }}&direct_search={{ query_direct_search }}" type="submit" class="btn btn-default" value="검색" />
 </form>
