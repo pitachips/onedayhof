@@ -1,0 +1,53 @@
+{% extends 'hof/base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'store_list.css' %}" />
+<style>
+    .navbar-form, .text-align-center {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+    {% for store in favorites %}
+        <div class="row">
+            <div class="col-md-5">
+                <a href="{% url 'store_detail' pk=store.pk %}">
+                    {% if store.storeimage_set.first %}
+                        <img class="img-responsive" src="{{ store.storeimage_set.first.image.url }}" />
+                    {% else %}
+                        <img class="img-responsive" src="http://placehold.it/900x500" alt="">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col-md-7">
+                <h3>{{ store.name }}</h3>
+                <h4>{{ store.atmosphere }}</h4>
+                <p>{{ store.description }}</p>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if favorties.has_previous %}
+                <a href="?page={{ favorties.previous_page_number }}&where={{ request.GET.where }}&what={{ request.GET.what }}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ favorties.number }} of {{ favorties.paginator.num_pages }}.
+            </span>
+            {% if favorties.has_next %}
+                <a href="?page={{ favorties.next_page_number }}&where={{ request.GET.where }}&what={{ request.GET.what }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}

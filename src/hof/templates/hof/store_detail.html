@@ -62,7 +62,7 @@ footer {
                 <p>
                 <a class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where={{ store.gu }}&howmany=&direct_search=">{{ store.get_gu_display }}</a>
                 <a class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where={{ store.region }}&howmany=&direct_search=">{{ store.get_region_display }}</a>
-                <a class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where=&howmany={{ store.max_guest }}&direct_search=">{{ store.max_guest }}명</a>
+                <a class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where=&howmany={{ store.max_guest }}&direct_search=">{{ store.get_max_guest_display }}</a>
                 <a class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where=&howmany=&direct_search={{ store.get_atmosphere_display }}">{{ store.get_atmosphere_display }}</a>
                 </p>
             </div>

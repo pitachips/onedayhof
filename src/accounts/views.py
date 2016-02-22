@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from accounts.forms import SignupForm, OwnerSignupForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
@@ -58,4 +58,13 @@ def owner_signup(request):
 @login_required
 def profile(request):
     return render(request, 'accounts/profile.html')
+
+
+# 찜목록
+@login_required
+def favorite_list(request):
+    user = get_object_or_404(User, pk=request.user.pk)
+    favorites = user.profile.favorites.all()
+    print(favorites)
+    return render(request, 'accounts/favorite_list.html', {'favorites': favorites})
 
