@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import SignupForm, OwnerSignupForm, UpdateForm
+from .forms import SignupForm, OwnerSignupForm, UpdateForm, OwnerUpdateForm
 
 
 def signup_choice(request):
@@ -60,15 +60,25 @@ def owner_signup(request):
 def profile(request):
     user = get_object_or_404(User, pk=request.user.pk)
 
-    if request.method == 'POST':
-        form = UpdateForm(request.POST, instance=user.profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')
+    if not user.profile.is_store_owner:
+        if request.method == 'POST':
+            form = UpdateForm(request.POST, instance=user.profile)
+            if form.is_valid():
+                form.save()
+                return redirect('profile')
+        else:
+            form = UpdateForm(instance=user.profile)
+        return render(request, 'accounts/profile.html', {'user': user, 'form':form, })
     else:
-        form = UpdateForm(instance=user.profile)
+        if request.method == 'POST':
+            form = OwnerUpdateForm(request.POST, instance=user.profile)
+            if form.is_valid():
+                form.save()
+                return redirect('profile')
+        else:
+            form = OwnerUpdateForm(instance=user.profile)
+        return render(request, 'accounts/owner_profile.html', {'user': user, 'form':form, })
 
-    return render(request, 'accounts/profile.html', {'user': user, 'form':form, })
 
 
 # 찜목록

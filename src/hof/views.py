@@ -286,7 +286,7 @@ class TelDetailView(HitCountDetailView):
 tel_detail = TelDetailView.as_view()
 
 @login_required
-def favorite_this_store(request, store_id):
+def favorite_this_store(request, store_id, flag):
     store = get_object_or_404(Store, pk=store_id)
     profile = get_object_or_404(Profile, pk=request.user.id)
     profile.save()

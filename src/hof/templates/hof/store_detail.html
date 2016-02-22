@@ -114,9 +114,9 @@ footer {
                         </div>
                     </div>
                     {% if favorite_flag %}
-                    <a class="btn btn-lg btn-warning" href="{% url 'unfavorite_this_store' store.pk %}">추가 완료</a>
+                    <buton id="unfavorite" class="favor btn btn-lg btn-warning" href="{% url 'unfavorite_this_store' store.pk 1 %}">찜 완료</button>
                     {% else %}
-                    <button id="favorite" class="btn btn-lg btn-default" href="{% url 'favorite_this_store' store.pk %}">즐겨찾기 등록</button>
+                    <button id="favorite" class="favor btn btn-lg btn-default" href="{% url 'favorite_this_store' store.pk 0 %}">찜하기</button>
                     {% endif %}
                 </h3>
             </div>
@@ -400,13 +400,20 @@ $(document).ready(function(){
             $.ajax({
                 url: url,
                 method: "GET"
-            }).done(function() {
-                $("#favorite").removeClass('btn-default');
-                $("#favorite").addClass('btn-warning').text('즐겨찾기 등록완료');
             });
         };
         return false;
     });
+
+    $("#unfavorite").click(function(){
+        var url = $(this).attr("href");
+        $.ajax({
+            url: url,
+            method: "GET"
+        }).done(function(){
+            $()
+        })
+    })
 });
 </script>
 
