@@ -236,6 +236,11 @@ def review_edit(request, store_id, review_id):
     store = Store.objects.get(pk=store_id)
     review = Review.objects.get(pk=review_id)
     old_rating = review.rating
+
+    if review.author != request.user:
+        messages.warning(request, '리뷰 작성자만 수정할 수 있습니다.')
+        return redirect('store_detail', review.store.pk)
+
     if (request.method == "POST"):
         form = ReviewForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
@@ -254,8 +259,19 @@ def review_edit(request, store_id, review_id):
 def review_delete(request, store_id, review_id):
     store = Store.objects.get(pk=store_id)
     review = Review.objects.get(pk=review_id)
-    review.delete()
+
+    if review.author != request.user:
+        messages.warning(request, '리뷰 작성자만 삭제할 수 있습니다.')
+        return redirect('store_detail', review.store.pk)
+    else:
+        store.rating = (store.rating*(store.n_review) - review.rating)/(store.n_review-1)
+        store.n_review -= 1
+        store.save()
+        review.delete()
+        messages.success(request, '리뷰를 삭제했습니다.')
+        return redirect('store_detail', review.store.pk)
     return redirect(store_detail, pk=store_id)
+
 
 
 class TelDetailView(HitCountDetailView):
