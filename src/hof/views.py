@@ -30,7 +30,7 @@ def index(request):
 
 @login_required
 def store_list(request):
-    store_list = Store.objects.all().order_by('-rating')
+    store_list = Store.objects.all().order_by('-rating').filter(is_active = True)
 
     region_list = []
     for region in REGION_CHOICES:
@@ -291,5 +291,14 @@ def favorite_this_store(request, store_id):
     profile = get_object_or_404(Profile, pk=request.user.id)
     profile.save()
     profile.favorites.add(store)
+    profile.save()
+    return redirect('store_detail', store_id)
+
+@login_required
+def unfavorite_this_store(request, store_id):
+    store = get_object_or_404(Store, pk=store_id)
+    profile = get_object_or_404(Profile, pk=request.user.id)
+    profile.save()
+    profile.favorites.remove(store)
     profile.save()
     return redirect('store_detail', store_id)
