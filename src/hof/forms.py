@@ -38,7 +38,8 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ('rating', 'content')
         widgets = {
-            'content': forms.Textarea(attrs={'style':'resize:none;', 'rows':4, 'placeholder':'평가와 후기를 남겨주세요' })
+            'content': forms.Textarea(attrs={'style':'resize:none;', 'rows':4, 'placeholder':'평가와 후기를 남겨주세요' }),
+            'rating': forms.HiddenInput,
         }
 
 

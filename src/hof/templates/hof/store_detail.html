@@ -147,6 +147,7 @@ footer {
 
             <!-- Comments Form -->
             <div class="well">
+                <div><p><strong>별점주기 </strong></p><span class='rating'><i class='fa fa-star-o fa-2x' value=1></i><i class='fa fa-star-o fa-2x' value=2></i><i class='fa fa-star-o fa-2x' value=3></i><i class='fa fa-star-o fa-2x' value=4></i><i class='fa fa-star-o fa-2x' value=5></i></span></div><br />
                 <form enctype ="multipart/form-data" action="{% url 'review_new' store.pk %}" method="post">{% csrf_token %}
                     {% bootstrap_form review_form %}
                     {% buttons %}
@@ -368,6 +369,28 @@ $(document).ready(function(){
     });
 });
 </script>
+
+<script>
+$(document).ready(function(){
+    $('.rating').children('i').click(function(){
+        var passedStarValue = $(this).attr("value");
+        $(this).siblings().removeClass('selected');
+
+        $(this).addClass('selected');
+        $(this).addClass('fa-star');
+        $(this).removeClass('fa-star-o');
+
+        $("i.selected").nextAll().removeClass('fa-star');
+        $("i.selected").nextAll().addClass('fa-star-o');
+
+        $("i.fa-star").prevAll().removeClass('fa fa-star-o');
+        $("i.fa-star").prevAll().addClass('fa fa-star');
+
+        $('#id_rating').val(passedStarValue);
+    });
+});
+</script>
+
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_vmxnOdj0JUnZKuncitGd1Jq0PD3ovSo&signed_in=true&region=KO&callback=initMap" async defer></script>
 
