@@ -4,34 +4,45 @@
 
 {% block style %}
     <link href="{% static 'signup.css' %}" rel="stylesheet">
+    <style>
+        .text-align-center{
+            text-align: center;
+        }
+        body {
+            padding-top: 100px;
+        }
+        td:first-child {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        td:last-child {
+            font-size:16px;
+        }
+    </style>
 {% endblock %}
 
 
 {% block content %}
     <div class="container">
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td>아이디</td>
-                    <td>{{ user.username }}</td>
-                </tr>
-                {% if user.profile.is_store_owner == True %}
-                <tr>
-                    <td>전화번호</td>
-                    <td>{{ user.profile.phone }}</td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td>학교</td>
-                    <td>{{ user.profile.school }}</td>
-                </tr>
-                <tr>
-                    <td>소속</td>
-                    <td>{{ store.profile.major }}</td>
-                </tr>
-                {% endif %}
-            </tbody>
-        </table>
-        <a href="{% url 'password_change' %}" class="btn btn-xs btn-primary"><h5>비밀번호 변경</h5></a>
+    <div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <p class="lead text-align-center">내 정보</p>
+        <form method="post" action="">{% csrf_token %}
+            <div class="form-group">
+                <label class="control-label" for="id_username">아이디</label>
+                <span class="form-control" id="id_username">{{ user.username }}</span>
+            </div>
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-active btn-block">{% bootstrap_icon "ok-sign" %} 회원정보수정 </button>
+            {% endbuttons %}
+        </form>
+            <hr />
+        <div class="row text-center">
+        <a href="{% url 'password_change' %}" class="btn btn-xs btn-danger" style="width:49%"><h5>비밀번호 변경</h5></a>
+        <a href="{% url 'favorite_list' %}" class="btn btn-xs btn-warning" style="width:49%"><h5>찜목록 보기</h5></a>
+        </div>
+    </div>
+    </div>
     </div>
 {% endblock %}

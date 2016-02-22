@@ -4,6 +4,8 @@ from django import forms
 import re
 from django.core.validators import RegexValidator
 
+from .models import Profile
+
 
 def phone_validator(value):
     number = ''.join(re.findall(r'\d+', value))
@@ -31,6 +33,14 @@ class SignupForm(UserCreationForm):
         return user
 
 
+class UpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('school', 'major', )
+
+
+
 class OwnerSignupForm(UserCreationForm):
     username = forms.CharField(label='아이디')
     password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
@@ -49,3 +59,9 @@ class OwnerSignupForm(UserCreationForm):
             user.profile.is_store_owner = True
             user.profile.save()
         return user
+
+class OwnerUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('phone', )

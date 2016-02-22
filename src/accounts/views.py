@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.forms import SignupForm, OwnerSignupForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+from .forms import SignupForm, OwnerSignupForm, UpdateForm
 
 
 def signup_choice(request):
@@ -58,7 +59,16 @@ def owner_signup(request):
 @login_required
 def profile(request):
     user = get_object_or_404(User, pk=request.user.pk)
-    return render(request, 'accounts/profile.html', {'user': user})
+
+    if request.method == 'POST':
+        form = UpdateForm(request.POST, instance=user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = UpdateForm(instance=user.profile)
+
+    return render(request, 'accounts/profile.html', {'user': user, 'form':form, })
 
 
 # 찜목록
