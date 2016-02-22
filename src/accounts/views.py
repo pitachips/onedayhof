@@ -68,21 +68,3 @@ def favorite_list(request):
     print(favorites)
     return render(request, 'accounts/favorite_list.html', {'favorites': favorites})
 
-
-def store_detail(request, pk):
-    store = get_object_or_404(Store, pk=pk)
-    store_image = store.storeimage_set.all()
-    if store.is_active:
-        context = {
-            'store':store,
-            'store_image':store_image,
-            'review_form':ReviewForm(),
-        }
-        if store.profile_set.filter(user=request.user).exists():
-            context.update({
-                'favorite_flag':True,
-            })
-        return render(request, 'hof/store_detail.html', context)
-    else:
-        messages.error(request, "업체를 확인중입니다. 승인 후에 실제로 홈페이지에 게시됩니다.")
-        return redirect("/")
