@@ -114,9 +114,9 @@ footer {
                         </div>
                     </div>
                     {% if favorite_flag %}
-                    <buton id="unfavorite" class="favor btn btn-lg btn-warning" href="{% url 'unfavorite_this_store' store.pk 1 %}">찜 완료</button>
+                    <button value="0" class="favor btn btn-lg btn-warning" href="{% url 'favorite_this_store' store_id=store.pk flag='0' %}">찜 완료</button>
                     {% else %}
-                    <button id="favorite" class="favor btn btn-lg btn-default" href="{% url 'favorite_this_store' store.pk 0 %}">찜하기</button>
+                    <button value="1" class="favor btn btn-lg btn-default" href="{% url 'favorite_this_store' store_id=store.pk flag='1' %}">찜 하기</button>
                     {% endif %}
                 </h3>
             </div>
@@ -146,12 +146,6 @@ footer {
               </ul>
             </div>
 
-<!--             {% if store_image.first.image %}
-                <img class="img-responsive" src="{{ store_image.first.image.url }}"/>
-            {% else %}
-                <img class="img-responsive" src="http://placehold.it/900x500" alt="">
-            {% endif %}
- -->
             <hr>
 
             <!-- Post Content -->
@@ -209,8 +203,8 @@ footer {
                             <small>{{ review.rating }}</small>
                         </h4>
                         {{ review.content }}
-                        <a href="{% url "review_edit" store.pk review.pk %}">수정</a>
-                        <a href="{% url "review_delete" store.pk review.pk %}" class="text text-danger">삭제</a>
+                        <a href="{% url 'review_edit' store.pk review.pk %}">수정</a>
+                        <a href="{% url 'review_delete' store.pk review.pk %}" class="text text-danger">삭제</a>
                     </div>
                 </div>
             {% endfor %}
@@ -393,28 +387,35 @@ footer {
 
 <script>
 $(document).ready(function(){
-    $("#favorite").click(function() {
+    $(".favor").click(function() {
         var url = $(this).attr("href");
+        console.log($(this));
 
-        if (confirm("즐겨찾기에 추가합니다.")) {
+        if ( $(this).val() == 1 ) {
+            if (confirm("즐겨찾기에 추가합니다.")) {
+                $.ajax({
+                    url: url,
+                    method: "GET"
+                }).done(function() {
+                    $('.favor').removeClass('btn-default').addClass('btn-warning')
+                        .text('찜 완료')
+                        .val('0')
+                        .attr("href", "{% url 'favorite_this_store' store_id=store.pk flag='0' %}");
+                });
+            };
+        } else {
             $.ajax({
-                url: url,
-                method: "GET"
-            });
-        };
-        return false;
+                    url: url,
+                    method: "GET"
+                }).done(function() {
+                    $('.favor').removeClass('btn-warning').addClass('btn-default')
+                        .text('찜 하기')
+                        .val('1')
+                        .attr("href", "{% url 'favorite_this_store' store_id=store.pk flag='1' %}");
+                });
+            };
+        });
     });
-
-    $("#unfavorite").click(function(){
-        var url = $(this).attr("href");
-        $.ajax({
-            url: url,
-            method: "GET"
-        }).done(function(){
-            $()
-        })
-    })
-});
 </script>
 
 <script>

@@ -290,15 +290,13 @@ def favorite_this_store(request, store_id, flag):
     store = get_object_or_404(Store, pk=store_id)
     profile = get_object_or_404(Profile, pk=request.user.id)
     profile.save()
-    profile.favorites.add(store)
-    profile.save()
-    return redirect('store_detail', store_id)
-
-@login_required
-def unfavorite_this_store(request, store_id):
-    store = get_object_or_404(Store, pk=store_id)
-    profile = get_object_or_404(Profile, pk=request.user.id)
-    profile.save()
-    profile.favorites.remove(store)
-    profile.save()
-    return redirect('store_detail', store_id)
+    if flag == 1 or flag == '1':
+        profile.favorites.add(store)
+        favorite_flag = True
+    elif flag == 0 or flag == '0':
+        profile.favorites.remove(store)
+        favorite_flag = False
+    else:
+        pass
+    store.save()
+    return redirect('store_detail', pk=store.pk)
