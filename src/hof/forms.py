@@ -15,6 +15,9 @@ class StoreForm(forms.ModelForm):
             'region': forms.RadioSelect(attrs={'style':'display: none'}),
             'atmosphere': forms.RadioSelect(attrs={'style':'display: none'}),
             # 'lnglat': PointWidget,
+            'menu': forms.Textarea(attrs={'style':'resize:none;', 'rows':5}),
+            'contract_condition': forms.Textarea(attrs={'style':'resize:none;', 'rows':5}),
+            'description': forms.Textarea(attrs={'style':'resize:none;', 'rows':5}),
         }
 
     def save(self, commit=True):

@@ -4,6 +4,14 @@
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'login.css' %}" />
+        <style>
+    .text-align-center {
+        text-align:center;
+    }
+    body {
+        padding-top: 80px;
+    }
+    </style>
 {% endblock %}
 
 
@@ -11,18 +19,18 @@
 
 <div class="container">
     <div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-4 col-sm-offset-4">
+        <p class="lead text-align-center"><strong>로그인</strong></p>
         <form method="post" action="">{% csrf_token %}
             {% bootstrap_form form %}
+        <hr />
 
             {% buttons %}
-                <button type="submit" class="btn btn-primary">{% bootstrap_icon "ok-sign" %} 로그인 </button>
-                <a class="btn btn-default" href="{% url 'signup_choice' %}">회원가입</a>
+                <button type="submit" class="btn btn-primary" style="width:49%">{% bootstrap_icon "ok-sign" %} 로그인 </button>
+                <a style="width:49%" class="btn btn-warning" href="{% url 'signup_choice' %}">회원가입</a>
             {% endbuttons %}
 
         </form>
-        <hr />
-        <a class="btn btn-default" href="{% url 'index' %}">메인화면</a>
     </div>
     </div>
 </div>

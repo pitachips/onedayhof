@@ -14,27 +14,30 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {% for store in favorites %}
-                <div class="row">
-                    <div class="col-md-5">
-                        <a href="{% url 'store_detail' pk=store.pk %}">
-                            {% if store.storeimage_set.first %}
-                                <img class="img-responsive" src="{{ store.storeimage_set.first.image.url }}" />
-                            {% else %}
-                                <img class="img-responsive" src="http://placehold.it/900x500" alt="">
-                            {% endif %}
-                        </a>
-                    </div>
-                    <div class="col-md-7">
-                        <h3>{{ store.name }}</h3>
-                        <h4>{{ store.atmosphere }}</h4>
-                        <p>{{ store.description }}</p>
-                    </div>
-                </div>
-                <!-- /.row -->
+        <div class="col md-8 col-md-offset-2">
 
-                <hr>
-            {% endfor %}
+        {% for store in favorites %}
+        <div class="row">
+            <div class="col-md-4">
+                <a href="{% url 'store_detail' pk=store.pk %}">
+                    {% if store.storeimage_set.first %}
+                        <img class="img-responsive" style="max-height: 300px;" src="{{ store.storeimage_set.first.image.url }}" />
+                    {% else %}
+                        <img class="img-responsive" src="http://placehold.it/500x300" alt="">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h3>{{ store.name }}</h3>
+                <h4>{{ store.atmosphere }}</h4>
+                <p>{{ store.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+        </div>
+        </div>
+        <!-- /.row -->
 
             <div class="pagination">
                 <span class="step-links">

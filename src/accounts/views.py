@@ -17,13 +17,14 @@ def signup(request):
         if request.method == 'POST':
             form = SignupForm(request.POST)
             if form.is_valid():
+                print('kk.......')
                 user = form.save()
                 authenticated_user = authenticate(
                     username=form.cleaned_data['username'],
                     password=form.cleaned_data['password1'])
                 login(request, authenticated_user)
-            messages.success(request, '환영합니다. ;)')
-            return redirect('/')
+                messages.success(request, '환영합니다. ;)')
+                return redirect('/')
         else:
             form = SignupForm()
         return render(request, 'accounts/signup.html', {'form': form, })
@@ -84,14 +85,12 @@ def profile(request):
 # 찜목록
 @login_required
 def favorite_list(request):
-    user = get_object_or_404(User, pk=request.user.pk)
-    favorites = user.profile.favorites.all()
+    favorites = request.user.profile.favorites.all()
     return render(request, 'accounts/favorite_list.html', {'favorites': favorites})
 
 
 # 내가 등록한 가게
 @login_required
 def mystore_list(request):
-    user = get_object_or_404(User, pk=request.user.pk)
-    stores = user.store_set.all()
+    stores = request.user.store_set.all()
     return render(request, 'accounts/mystore_list.html', {'stores': stores})

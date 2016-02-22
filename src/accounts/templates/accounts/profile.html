@@ -26,10 +26,10 @@
     <div class="container">
     <div class="row">
     <div class="col-sm-4 col-sm-offset-4">
-        <p class="lead text-align-center">내 정보</p>
+        <p class="lead text-align-center"><strong>내 정보</strong></p>
         <form method="post" action="">{% csrf_token %}
             <div class="form-group">
-                <label class="control-label" for="id_username">아이디</label>
+                <label class="control-label" for="id_username">아이디(수정불가)</label>
                 <span class="form-control" id="id_username">{{ user.username }}</span>
             </div>
             {% bootstrap_form form %}
@@ -38,10 +38,9 @@
             {% endbuttons %}
         </form>
             <hr />
-        <div class="row text-center">
+
         <a href="{% url 'password_change' %}" class="btn btn-xs btn-danger" style="width:49%"><h5>비밀번호 변경</h5></a>
         <a href="{% url 'favorite_list' %}" class="btn btn-xs btn-warning" style="width:49%"><h5>찜목록 보기</h5></a>
-        </div>
     </div>
     </div>
     </div>

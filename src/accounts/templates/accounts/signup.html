@@ -5,6 +5,15 @@
 
 {% block style %}
     <link href="{% static 'signup.css' %}" rel="stylesheet">
+    <style>
+    .text-align-center {
+        text-align:center;
+    }
+    body {
+        padding-top: 80px;
+    }
+    </style>
+
 {% endblock %}
 
 
@@ -12,13 +21,13 @@
 
 <div class="container">
     <div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-4 col-sm-offset-4">
+        <p class="lead text-align-center"><strong>OneDayHof</strong></p>
         <form method="post" action="">{% csrf_token %}
             {% bootstrap_form form %}
 
-            <hr />
             {% buttons %}
-                <button type="submit" class="btn btn-primary">{% bootstrap_icon "ok-sign" %} 회원가입 </button>
+                <button type="submit" class="btn btn-primary pull-right">{% bootstrap_icon "ok-sign" %} 회원가입 </button>
             {% endbuttons %}
         </form>
     </div>

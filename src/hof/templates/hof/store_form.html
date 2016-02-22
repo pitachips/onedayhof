@@ -29,7 +29,7 @@
         <h2><mark>업체정보를 등록해주세요</mark></h2>
     </div>
 
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-6 col-sm-offset-3">
         <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
             {% bootstrap_form storeForm %}
             {% bootstrap_formset formset %}

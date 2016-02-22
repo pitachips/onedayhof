@@ -17,7 +17,7 @@ class SignupForm(UserCreationForm):
     password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
     password2 = forms.CharField(label='비밀번호 확인', widget=forms.PasswordInput)
     school = forms.CharField(label='대학이름')
-    major = forms.CharField(label='소속', widget=forms.TextInput(attrs={'placeholder': '본인이 속한 단과대학이나 동아리 이름을 적어주세요.'}))
+    major = forms.CharField(label='소속', widget=forms.TextInput(attrs={'placeholder': '본인이 속한 단과대학이나 동아리 이름을 적어주세요.'}), )
     is_agree = forms.BooleanField(label='약관동의', error_messages={
         'required' : '약관동의를 해주셔야 가입이 됩니다.',
     })
@@ -45,7 +45,7 @@ class OwnerSignupForm(UserCreationForm):
     username = forms.CharField(label='아이디')
     password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
     password2 = forms.CharField(label='비밀번호 확인', widget=forms.PasswordInput)
-    phone = forms.CharField(label='휴대폰 번호', widget=forms.TextInput(attrs={'placeholder': '연락가능한 번호를 적어주세요'}), validators=[phone_validator])
+    phone = forms.CharField(label='휴대폰 번호', widget=forms.TextInput(attrs={'placeholder': 'ex) 010-1234-5678'}), validators=[phone_validator])
     is_agree = forms.BooleanField(label='약관동의', error_messages={
         'required' : '약관동의를 해주셔야 가입이 됩니다.',
     })
