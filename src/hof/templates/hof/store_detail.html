@@ -126,17 +126,26 @@ footer {
             <hr>
 
             <!-- Post Content -->
-            <p class="lead">
-            수용인원: {{ store.max_guest }}명<br />
-            기본대관료: 100만원<br />
-            수익분배 방식: {{ store.contract_condition }}<br />
-            </p>
-            <p class="lead">
-            상세정보:
-            </p>
-            <p>
-            {{ store.description }}
-            </p>
+            <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td>수용인원</td>
+                    <td>{{ store.get_max_guest_display }}</td>
+                  </tr>
+                  <tr>
+                    <td>계약조건</td>
+                    <td>{{ store.contract_condition }}</td>
+                  </tr>
+                  <tr>
+                    <td>메뉴</td>
+                    <td>{{ store.menu }}</td>
+                  </tr>
+                  <tr>
+                    <td>상세설명</td>
+                    <td>{{ store.description }}</td>
+                  </tr>
+                </tbody>
+            </table>
 
             <hr>
 
