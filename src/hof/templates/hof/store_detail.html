@@ -53,9 +53,6 @@ footer {
 {% block headjs %}
     <script src="{% static 'woothemes-FlexSlider-9a419a0/jquery.flexslider-min.js' %}"></script>
 
-<script>
-    $('#id_rating').val(3);
-</script>
 {% endblock %}
 
 {% block navbar %}
@@ -203,7 +200,7 @@ footer {
                             <small class="ratings" value="{{ review.rating }}" style="color:#E66650"></small>
                         </h4>
                         {{ review.content }}
-                        <a href="{% url 'review_edit' store.pk review.pk %}">수정</a>
+                        <!-- <a href="{% url 'review_edit' store.pk review.pk %}">수정</a> -->
                         <a class="review_delete" href="{% url 'review_delete' store.pk review.pk %}" class="text text-danger">삭제</a>
                     </div>
                 </div>

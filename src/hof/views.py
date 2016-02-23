@@ -118,10 +118,20 @@ def store_list(request):
 
 @login_required
 def store_detail(request, pk):
+    region_list = []
+    for region in REGION_CHOICES:
+        region_list.append(region[1])
+
+    max_guest_list = []
+    for max_guest in MAX_GUEST_CHOICES:
+        max_guest_list.append(max_guest[1])
+
     store = get_object_or_404(Store, pk=pk)
     store_image = store.storeimage_set.all()
     if store.is_active:
         context = {
+            'region_list':region_list,
+            'max_guest_list':max_guest_list,
             'store':store,
             'store_image':store_image,
             'review_form':ReviewForm(),
