@@ -50,26 +50,28 @@
 {% block script %}
 <script>
 $(document).ready(function(){
-    function selectedRadioColor(radioInput){
-        $(radioInput).on('change', function() {
-        $(radioInput).parent().parent().css('background-color', 'white');
-        $(this).parent().parent().css('background-color', '#aaa');
-        });
-    }
 
-    selectedRadioColor('#id_gu input')
-    selectedRadioColor('#id_region input')
-    selectedRadioColor('#id_atmosphere input')
-});
-</script>
+    var address = $('#id_address').val();
+    $('#map_search').children('input').val(address);
 
-<script>
-$(document).ready(function(){
     $('#map_search').children('input').click(function(){
         var address = $('#id_address').val();
         $(this).val(address);
         alert('검색 버튼을 꼭 눌러서 확인해주세요');
-    })
+    });
+
+    $('input:checked').parent().css('background-color', '#aaa');
+
+    function selectedRadioColor(radioInput){
+        $(radioInput).on('change', function() {
+        $(radioInput).parent().css('background-color', 'white');
+        $(this).parent().css('background-color', '#aaa');
+        });
+    };
+
+    selectedRadioColor('#id_gu input');
+    selectedRadioColor('#id_region input');
+    selectedRadioColor('#id_atmosphere input');
 });
 </script>
 
