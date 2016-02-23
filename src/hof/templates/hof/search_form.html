@@ -35,13 +35,13 @@
 <div class="modal search-modal" id="whereChoiceModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content modal-content-gray">
         <div class="modal-body">
             <div id="region_list text-center">
             {% for region in region_list %}
-                <button class="btn btn-sm btn-primary region_choice" value="{{ region }}">{{ region }}</button>
+                <button class="btn btn-sm btn-default region_choice" value="{{ region }}"><b>{{ region }}</b></button>
             {% endfor %}
-                <button class="btn btn-sm btn-defualt region_choice" value="">선택 취소</button>
+                <button class="btn btn-sm btn-danger region_choice" value="">선택 취소</button>
             </div>
         </div>
       </div>
@@ -52,13 +52,13 @@
 <div class="modal search-modal" id="howmanyChoiceModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content modal-content-gray">
         <div class="modal-body">
             <div id="max_guest_list" class="_drop_content">
             {% for max_guest in max_guest_list %}
-                <button class="btn btn-sm btn-primary max_guest_choice" value="{{ max_guest }}">{{ max_guest }}</button>
+                <button class="btn btn-sm btn-default max_guest_choice" value="{{ max_guest }}"><b>{{ max_guest }}</b></button>
             {% endfor %}
-                <button class="btn btn-sm btn-defualt max_guest_choice" value="">선택 취소</button>
+                <button class="btn btn-sm btn-danger max_guest_choice" value="">선택 취소</button>
             </div>
         </div>
       </div>
