@@ -5,7 +5,7 @@ import re
 from django.core.validators import RegexValidator
 
 from .models import Profile
-
+from django.utils.translation import ugettext_lazy as _
 
 def phone_validator(value):
     number = ''.join(re.findall(r'\d+', value))
@@ -21,6 +21,10 @@ class SignupForm(UserCreationForm):
     is_agree = forms.BooleanField(label='약관동의', error_messages={
         'required' : '약관동의를 해주셔야 가입이 됩니다.',
     })
+
+    error_messages = {
+        'password_mismatch': _("비밀번호가 일치하지 않습니다."),
+    }
 
     def save(self, commit=True):
         user = super(SignupForm, self).save(commit=False)
@@ -50,6 +54,9 @@ class OwnerSignupForm(UserCreationForm):
         'required' : '약관동의를 해주셔야 가입이 됩니다.',
     })
 
+    error_messages = {
+        'password_mismatch': _("비밀번호가 일치하지 않습니다."),
+    }
 
     def save(self, commit=True):
         user = super(OwnerSignupForm, self).save(commit=False)
