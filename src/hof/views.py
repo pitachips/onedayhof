@@ -21,12 +21,12 @@ def index(request):
     for max_guest in MAX_GUEST_CHOICES:
         max_guest_list.append(max_guest[1])
 
-    # index_page_recommended_store_list = []
-    # for i in range(1, 10):
-    #     store = get_object_or_404(Store, is_index_page_recommended_store=i);
-    #     recommended_store_list.append(store)
+    index_page_recommended_store_list = []
+    for i in range(1, 10):
+        store = get_object_or_404(Store, is_index_page_recommended_store=i);
+        index_page_recommended_store_list.append(store)
 
-    return render(request, 'hof/index.html', {'region_list':region_list, 'max_guest_list':max_guest_list, })
+    return render(request, 'hof/index.html', {'region_list':region_list, 'max_guest_list':max_guest_list, 'index_page_recommended_store_list':index_page_recommended_store_list, })
 
 
 @login_required
