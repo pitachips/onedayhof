@@ -1,6 +1,7 @@
 {% extends 'hof/base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'woothemes-FlexSlider-9a419a0/flexslider.css' %}" type="text/css">
@@ -198,7 +199,7 @@ footer {
                     <div class="media-body">
                         <h4 class="media-heading">
                             {{ review.author }}
-                            <small>/ {{ review.created_at }} / </small>
+                            <small>{{ review.created_at|date:"n월 j일" }}</small>
                             <small class="ratings" value="{{ review.rating }}" style="color:#E66650"></small>
                         </h4>
                         {{ review.content }}

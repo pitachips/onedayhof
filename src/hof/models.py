@@ -89,8 +89,8 @@ class Store(models.Model):
 
     #태그용. 1개씩밖에 선택 못함.
     max_guest = models.CharField(max_length=10, choices=MAX_GUEST_CHOICES, default='', verbose_name='수용가능 인원수')
-    gu = models.CharField(max_length=5, choices=GU_CHOICES, default='', verbose_name='업체위치 1')
-    region = models.CharField(max_length=8, choices=REGION_CHOICES, default='', verbose_name='업체위치 2')
+    gu = models.CharField(max_length=7, choices=GU_CHOICES, default='', verbose_name='업체위치 1')
+    region = models.CharField(max_length=7, choices=REGION_CHOICES, default='', verbose_name='업체위치 2')
     atmosphere = models.CharField(max_length=15, choices=ATMOSPHERE_CHOICES, default='', verbose_name='매장 분위기')
 
 
