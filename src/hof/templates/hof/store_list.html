@@ -87,9 +87,9 @@
                         <div class="col-md-5">
                             <a href="{% url 'store_detail' pk=store.pk %}">
                                 {% if store.storeimage_set.first %}
-                                    <img class="img-responsive" src="{{ store.storeimage_set.first.image.url }}" />
+                                    <img class="img-responsive" style="margin:auto;" src="{{ store.storeimage_set.first.image.url }}" />
                                 {% else %}
-                                    <img class="img-responsive" src="http://placehold.it/900x500" alt="">
+                                    <img class="img-responsive" src="http://placehold.it/350x250" alt="">
                                 {% endif %}
                             </a>
                         </div>

@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from hitcount.views import HitCountDetailView
 
 from .models import Store, StoreImage, Review, ReviewImage, REGION_CHOICES, MAX_GUEST_CHOICES
@@ -23,7 +24,11 @@ def index(request):
 
     index_page_recommended_store_list = []
     for i in range(1, 10):
-        store = get_object_or_404(Store, is_index_page_recommended_store=i);
+        print(i)
+        try:
+            store = Store.objects.get(is_index_page_recommended_store=i);
+        except ObjectDoesNotExist:
+            continue
         index_page_recommended_store_list.append(store)
 
     return render(request, 'hof/index.html', {'region_list':region_list, 'max_guest_list':max_guest_list, 'index_page_recommended_store_list':index_page_recommended_store_list, })
