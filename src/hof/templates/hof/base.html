@@ -27,6 +27,18 @@
       .modal .modal-footer {
           background-color: #f9f9f9;
       }
+      .search-modal {
+        top:40%;
+      }
+
+      .search-modal .modal-body {
+        padding: 10px;
+        text-align: center;
+      }
+      .modal-body .btn-sm {
+        padding: 5px 8px;
+        margin: 2px;
+      }
   </style>
 
 
@@ -55,38 +67,49 @@ $(document).ready(function(){
 
 </script>
 
+
 <script>
-
 $(document).ready(function(){
-
     $("#where").focusin(function(){
-        $('#max_guest_list').hide();
-        $('#region_list').show();
+        $("#whereChoiceModal").modal();
     });
 
     $('.region_choice').click(function(){
         var regionChoice = $(this).val();
         $('#where').val(regionChoice);
-        $('#region_list').hide();
+        $("#whereChoiceModal").modal("hide");
     });
 
     $("#howmany").focusin(function(){
-        $('#region_list').hide();
-        $('#max_guest_list').show();
+        $("#howmanyChoiceModal").modal();
     });
 
     $('.max_guest_choice').click(function(){
         var maxGuestChoice = $(this).val();
         $('#howmany').val(maxGuestChoice);
-        $('#max_guest_list').hide();
+        $("#howmanyChoiceModal").modal("hide");
     });
 
-    $('#direct_search').focus(function(){
-        $('#max_guest_list').hide();
-        $('#region_list').hide();
-    })
-
 });
+
+</script>
+
+<script>
+
+// $(document).ready(function(){
+
+//     $('.max_guest_choice').click(function(){
+//         var maxGuestChoice = $(this).val();
+//         $('#howmany').val(maxGuestChoice);
+//         $('#max_guest_list').hide();
+//     });
+
+//     $('#direct_search').focus(function(){
+//         $('#max_guest_list').hide();
+//         $('#region_list').hide();
+//     })
+
+// });
 
 </script>
 
