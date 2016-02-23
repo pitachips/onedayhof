@@ -11,6 +11,7 @@ from .forms import StoreForm, StoreImageForm, ReviewForm, ReviewImageForm
 from accounts.models import Profile
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+
 def index(request):
     region_list = []
     for region in REGION_CHOICES:
@@ -117,10 +118,20 @@ def store_list(request):
 
 @login_required
 def store_detail(request, pk):
+    region_list = []
+    for region in REGION_CHOICES:
+        region_list.append(region[1])
+
+    max_guest_list = []
+    for max_guest in MAX_GUEST_CHOICES:
+        max_guest_list.append(max_guest[1])
+
     store = get_object_or_404(Store, pk=pk)
     store_image = store.storeimage_set.all()
     if store.is_active:
         context = {
+            'region_list':region_list,
+            'max_guest_list':max_guest_list,
             'store':store,
             'store_image':store_image,
             'review_form':ReviewForm(),
@@ -141,19 +152,23 @@ def store_new(request):
     if not request.user.is_staff and not request.user.profile.is_store_owner:
         return redirect('index')
 
-    ImageFormSet = modelformset_factory(StoreImage, form=StoreImageForm, extra=3)
+    ImageFormSet = modelformset_factory(StoreImage, form=StoreImageForm, extra=6, max_num=6)
 
     if request.method == 'POST':
         storeForm = StoreForm(request.POST)
         formset = ImageFormSet(request.POST, request.FILES, queryset=StoreImage.objects.none())
+        print(formset)
 
         if storeForm.is_valid() and formset.is_valid():
             store = storeForm.save(commit=False)
             store.owner = request.user
             store.save()
+            print('herer')
+
             store_images = formset.save(commit=False)
             for store_image in store_images:
                 store_image.store = store
+                print('here in')
                 store_image.save()
             messages.success(request, "업체가 성공적으로 등록되었습니다. 관리자의 승인 후에 실제로 홈페이지에 게시됩니다.")
             return redirect("/")
@@ -168,26 +183,19 @@ def store_new(request):
 
 
 @login_required
-def store_edit(request,pk):
+def store_edit(request, pk):
     store = get_object_or_404(Store, pk=pk)
     if request.user != store.owner:
         return redirect('/')
 
-    store_image = store.storeimage_set.all()
-    ImageFormSet = modelformset_factory(StoreImage, form=StoreImageForm, extra=3)
-
-    print('1111')
+    ImageFormSet = modelformset_factory(StoreImage, form=StoreImageForm, extra=3, max_num=6, can_delete=True)
 
     if request.method == 'POST':
         storeForm = StoreForm(request.POST, instance=store)
-        formset = ImageFormSet(request.POST, request.FILES, queryset=store_image.all())
-        print('12222111')
+        formset = ImageFormSet(request.POST, request.FILES, queryset=store.storeimage_set.all())
 
         if storeForm.is_valid() and formset.is_valid():
-            store = storeForm.save(commit=False)
-            store.owner = request.user
             store.save()
-            print('33331111')
 
             store_images = formset.save(commit=False)
             for store_image in store_images:
@@ -197,7 +205,7 @@ def store_edit(request,pk):
             return redirect("/")
     else:
         storeForm = StoreForm(instance=store)
-        formset = ImageFormSet(queryset=store_image.all())
+        formset = ImageFormSet(queryset=store.storeimage_set.all())
 
     return render(request, 'hof/store_form.html', {
         'storeForm': storeForm,
