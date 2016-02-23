@@ -94,3 +94,6 @@ def favorite_list(request):
 def mystore_list(request):
     stores = request.user.store_set.all()
     return render(request, 'accounts/mystore_list.html', {'stores': stores})
+
+def access_terms(request):
+    return render(request, 'accounts/access_terms.html')
