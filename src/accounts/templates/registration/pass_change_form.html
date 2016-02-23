@@ -20,21 +20,14 @@
 <div class="container">
     <div class="row">
     <div class="col-sm-4 col-sm-offset-4">
-
-        <br/>
-        <p class="lead text-align-center"><strong>로그인</strong></p>
+        <p class="lead text-align-center"><strong>비밀번호 변경</strong></p>
         <form method="post" action="">{% csrf_token %}
             {% bootstrap_form form %}
         <hr />
             {% buttons %}
-                <button type="submit" class="btn btn-primary" style="width:49%">{% bootstrap_icon "ok-sign" %} 로그인 </button>
-                <a style="width:49%" class="btn btn-warning" href="{% url 'signup_choice' %}">회원가입</a>
+                <button type="submit" class="btn btn-primary" style="width:49%">{% bootstrap_icon "ok-sign" %} 비밀번호 변경 </button>
             {% endbuttons %}
-
         </form>
-        <hr />
-        <p style="text-align: center; color: #555;">원데이호프의 서비스는 로그인 후 이용이 가능합니다.<br/>
-계정이 없으시다면 회원가입 후 이용해주세요.</p>
     </div>
     </div>
 </div>

@@ -1,11 +1,12 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
-from django import forms
 import re
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, SetPasswordForm, PasswordChangeForm
+from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.utils.translation import ugettext_lazy as _
+
 
 from .models import Profile
-from django.utils.translation import ugettext_lazy as _
 
 def phone_validator(value):
     number = ''.join(re.findall(r'\d+', value))
@@ -67,8 +68,32 @@ class OwnerSignupForm(UserCreationForm):
             user.profile.save()
         return user
 
+
 class OwnerUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
         fields = ('phone', )
+
+
+
+class SetPasswordForm(forms.Form):
+
+    error_messages = {
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+
+
+class PassChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label=_("기존 비밀번호"), widget=forms.PasswordInput(attrs={'autofocus': ''}), )
+    new_password1 = forms.CharField(label=_("새 비밀번호"), widget=forms.PasswordInput(),)
+    new_password2 = forms.CharField(label=_("새 비밀번호 확인"), widget=forms.PasswordInput(), )
+
+    error_messages = dict(SetPasswordForm.error_messages, **{
+        'password_incorrect': _("기존 비밀번호가 일치하지 않습니다. 다시 입력해주세요."),
+        'password_too_short': _("으아아...."),
+    })
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(label='아이디')
+    password = forms.CharField(label='비밀번호', widget=forms.PasswordInput())
