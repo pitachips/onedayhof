@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^(?P<store_id>[0-9]+)/review/(?P<review_id>[0-9]+)/edit/$', views.review_edit, name='review_edit'),
     url(r'^(?P<store_id>[0-9]+)/review/(?P<review_id>[0-9]+)/delete/$', views.review_delete, name='review_delete'),
 
-    url(r'^(?P<store_id>[0-9]+)/favorite_this_store/(?P<flag>[01])/$', views.favorite_this_store, name='favorite_this_store'),
+    url(r'^(?P<store_id>[0-9]+)/favorite_this_store/(?P<flag>[01])/(?P<from_fav_list>[\w]+)/$', views.favorite_this_store, name='favorite_this_store'),
 ]

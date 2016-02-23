@@ -172,22 +172,28 @@ def store_edit(request,pk):
     store = get_object_or_404(Store, pk=pk)
     if request.user != store.owner:
         return redirect('/')
+
     store_image = store.storeimage_set.all()
     ImageFormSet = modelformset_factory(StoreImage, form=StoreImageForm, extra=3)
+
+    print('1111')
 
     if request.method == 'POST':
         storeForm = StoreForm(request.POST, instance=store)
         formset = ImageFormSet(request.POST, request.FILES, queryset=store_image.all())
+        print('12222111')
 
         if storeForm.is_valid() and formset.is_valid():
             store = storeForm.save(commit=False)
             store.owner = request.user
             store.save()
+            print('33331111')
+
             store_images = formset.save(commit=False)
             for store_image in store_images:
                 store_image.store = store
                 store_image.save()
-            messages.success(request, "업체가 성공적으로 수정되었습니다. 관리자의 승인 후에 실제로 홈페이지에 게시됩니다.")
+            messages.success(request, "업체가 성공적으로 수정되었습니다.")
             return redirect("/")
     else:
         storeForm = StoreForm(instance=store)
@@ -208,7 +214,7 @@ def store_delete(request, pk):
 
     store.delete()
     messages.error(request, "업체가 삭제되었습니다.")
-    return redirect("index")
+    return redirect("mystore_list")
 
 
 @login_required
@@ -286,17 +292,22 @@ class TelDetailView(HitCountDetailView):
 tel_detail = TelDetailView.as_view()
 
 @login_required
-def favorite_this_store(request, store_id, flag):
-    store = get_object_or_404(Store, pk=store_id)
+def favorite_this_store(request, **kwargs):
+    store = get_object_or_404(Store, pk=kwargs['store_id'])
     profile = get_object_or_404(Profile, pk=request.user.id)
     profile.save()
-    if flag == 1 or flag == '1':
+    if kwargs['flag'] == '1':
         profile.favorites.add(store)
         favorite_flag = True
-    elif flag == 0 or flag == '0':
+    elif kwargs['flag'] == '0':
         profile.favorites.remove(store)
         favorite_flag = False
     else:
         pass
     store.save()
-    return redirect('store_detail', pk=store.pk)
+
+    if kwargs['from_fav_list']:
+        print('hi')
+        return redirect('favorite_list')
+    else:
+        return redirect('store_detail', pk=store.pk)

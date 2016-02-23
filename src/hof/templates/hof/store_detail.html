@@ -113,9 +113,9 @@ footer {
                         </div>
                     </div>
                     {% if favorite_flag %}
-                    <button value="0" class="favor btn btn-lg btn-warning" href="{% url 'favorite_this_store' store_id=store.pk flag='0' %}">찜 완료</button>
+                    <button value="0" class="favor btn btn-lg btn-warning" href="{% url 'favorite_this_store' store_id=store.pk flag='0' from_fav_list='False' %}">찜 완료</button>
                     {% else %}
-                    <button value="1" class="favor btn btn-lg btn-default" href="{% url 'favorite_this_store' store_id=store.pk flag='1' %}">찜 하기</button>
+                    <button value="1" class="favor btn btn-lg btn-default" href="{% url 'favorite_this_store' store_id=store.pk flag='1' from_fav_list='False' %}">찜 하기</button>
                     {% endif %}
                 </h3>
             </div>
@@ -199,11 +199,11 @@ footer {
                         <h4 class="media-heading">
                             {{ review.author }}
                             <small>/ {{ review.created_at }} / </small>
-                            <small class="ratings" loop="{{forloop.counter}}" value="{{ review.rating }}" style="color:#E66650"></small>
+                            <small class="ratings" value="{{ review.rating }}" style="color:#E66650"></small>
                         </h4>
                         {{ review.content }}
                         <a href="{% url 'review_edit' store.pk review.pk %}">수정</a>
-                        <a href="{% url 'review_delete' store.pk review.pk %}" class="text text-danger">삭제</a>
+                        <a class="review_delete" href="{% url 'review_delete' store.pk review.pk %}" class="text text-danger">삭제</a>
                     </div>
                 </div>
             {% endfor %}
@@ -399,7 +399,7 @@ $(document).ready(function(){
                     $('.favor').removeClass('btn-default').addClass('btn-warning')
                         .text('찜 완료')
                         .val('0')
-                        .attr("href", "{% url 'favorite_this_store' store_id=store.pk flag='0' %}");
+                        .attr("href", "{% url 'favorite_this_store' store_id=store.pk flag='0' from_fav_list='False' %}");
                 });
             };
         } else {
@@ -410,7 +410,7 @@ $(document).ready(function(){
                     $('.favor').removeClass('btn-warning').addClass('btn-default')
                         .text('찜 하기')
                         .val('1')
-                        .attr("href", "{% url 'favorite_this_store' store_id=store.pk flag='1' %}");
+                        .attr("href", "{% url 'favorite_this_store' store_id=store.pk flag='1' from_fav_list='False' %}");
                 });
             };
         });
@@ -459,6 +459,17 @@ $(document).ready(function(){
   });
 });
 
+</script>
+
+<script>
+$(document).ready(function(){
+    $('.review_delete').click(function(){
+        if(confirm('정말로 지우시겠습니까?')){
+            return true;
+        };
+        return false;
+    })
+});
 </script>
 
 

@@ -7,50 +7,60 @@
     .navbar-form, .text-align-center {
         text-align: center;
     }
+    body {
+        padding-top: 100px;
+    }
+    #store_name {
+        margin-top: 10px;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="row">
-            {% for store in stores %}
-                <div class="row">
-                    <div class="col-md-4">
-                        <a href="{% url 'store_detail' pk=store.pk %}">
-                            {% if store.storeimage_set.first %}
-                                <img class="img-responsive" src="{{ store.storeimage_set.first.image.url }}" />
-                            {% else %}
-                                <img class="img-responsive" src="http://placehold.it/900x500" alt="">
-                            {% endif %}
-                        </a>
-                    </div>
-                    <div class="col-md-6">
-                        <h3>{{ store.name }}</h3>
-                        <h4>{{ store.atmosphere }}</h4>
-                        <p>{{ store.description }}</p>
-                    </div>
-                    <div class=="col-md-2">
-                        <a href="{% url "store_delete" store.pk %}" class="btn btn-lg btn-danger">삭제</a>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                <hr>
-            {% endfor %}
-
-            <div class="pagination">
-                <span class="step-links">
-                    {% if stores.has_previous %}
-                        <a href="?page={{ stores.previous_page_number }}&where={{ request.GET.where }}&what={{ request.GET.what }}">previous</a>
-                    {% endif %}
-                    <span class="current">
-                        Page {{ stores.number }} of {{ stores.paginator.num_pages }}.
-                    </span>
-                    {% if stores.has_next %}
-                        <a href="?page={{ stores.next_page_number }}&where={{ request.GET.where }}&what={{ request.GET.what }}">next</a>
-                    {% endif %}
-                </span>
+                <div class="col-md-12">
+                <p class="lead text-align-center"><strong>내가 등록한 장소들</strong></p>
             </div>
         </div>
+        {% for store in stores %}
+        <div class="row">
+            <div class="col-md-3 col-md-offset-3">
+                <a href="{% url 'store_detail' pk=store.pk %}">
+                    {% if store.storeimage_set.first %}
+                        <img class="img-responsive" style="max-height: 300px;" src="{{ store.storeimage_set.first.image.url }}" />
+                    {% else %}
+                        <img class="img-responsive" src="http://placehold.it/500x300" alt="">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col-md-3">
+                <div class="pull-right">
+                 <a href="{% url 'store_edit' store.pk %}"><span style="font-size: 14px;">정보수정 </span></a><a class="store_delete" href="{% url 'store_delete' store.pk %}"><span style="font-size: 14px; color:red;">삭제</span></a></div>
+                <h3 id="store_name">{{ store.name }}</h3>
+                <h4>{{ store.atmosphere }}</h3>
+                <p>{{ store.description }}</p>
+            </div>
+        </div>
+        <br />
+        {% endfor %}
+
+        <!-- /.row -->
+
+
+        </div>
     </div>
+{% endblock %}
+
+{% block js %}
+<script>
+$(document).ready(function(){
+    $('.store_delete').click(function(){
+        if(confirm('정말로 지우시겠습니까?')){
+            return true;
+        };
+        return false;
+    })
+});
+</script>
 {% endblock %}
