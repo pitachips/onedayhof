@@ -91,7 +91,6 @@ class PassChangeForm(PasswordChangeForm):
 
     error_messages = dict(SetPasswordForm.error_messages, **{
         'password_incorrect': _("기존 비밀번호가 일치하지 않습니다. 다시 입력해주세요."),
-        'password_too_short': _("으아아...."),
     })
 
 class LoginForm(AuthenticationForm):

@@ -46,21 +46,18 @@ GU_CHOICES = (
 )
 
 REGION_CHOICES = (
-    ('건대(강변)', '건대(강변)'),
-    ('교대/강남', '교대/강남'),
-    ('구로/영등포', '구로/영등포'),
-    ('사당/이수', '사당/이수'),
     ('서울대', '서울대'),
-    ('신림', '신림'),
-    ('신사', '신사/논현'),
-    ('압구정', '압구정'),
-    ('이태원/용산', '이태원/용산'),
-    ('종로/명동', '종로/명동'),
-    ('잠실/송파', '잠실/송파'),
-    ('홍대/신촌', '홍대/신촌'),
-    ('회기/강북', '회기/강북'),
-    ('혜화/대학로', '혜화/대학로'),
-    ('기타지역','기타지역'),
+    ('신촌(연대/이대/서강대/홍대)', '신촌(연대/이대/서강대/홍대)'),
+    ('안암(고려대/성신여대)', '안암(고려대/성신여대)'),
+    ('대학로(성균관대/가톨릭대)', '대학로(성균관대/가톨릭대)'),
+    ('회기(경희대/시립대/외대)', '회기(경희대/시립대/외대)'),
+    ('왕십리(한양대)', '왕십리(한양대)'),
+    ('건대/세종대', '건대/세종대'),
+    ('서울여대/서울과기대/광운대', '서울여대/서울과기대/광운대'),
+    ('중앙대/숭실대/총신대', '중앙대/숭실대/총신대'),
+    ('동국대', '동국대'),
+    ('숙명여대', '숙명여대'),
+    ('기타지역', '기타지역'),
 )
 
 ATMOSPHERE_CHOICES = (
@@ -88,12 +85,13 @@ class Store(models.Model):
     description = models.TextField(blank=True, default='', verbose_name='상세조건 및 기타')
     is_active = models.BooleanField(default=False)
     is_index_page_recommended_store = models.PositiveSmallIntegerField(unique=True, validators=[MinValueValidator(0), MaxValueValidator(9)], blank=True, null=True)
+    is_sidebar_recommended_store = models.PositiveSmallIntegerField(unique=True, blank=True, null=True)
 
     #태그용. 1개씩밖에 선택 못함.
     max_guest = models.CharField(max_length=10, choices=MAX_GUEST_CHOICES, default='', verbose_name='수용가능 인원수')
-    gu = models.CharField(max_length=7, choices=GU_CHOICES, default='', verbose_name='업체위치 1')
-    region = models.CharField(max_length=7, choices=REGION_CHOICES, default='', verbose_name='업체위치 2')
-    atmosphere = models.CharField(max_length=15, choices=ATMOSPHERE_CHOICES, default='', verbose_name='매장 분위기')
+    gu = models.CharField(max_length=6, choices=GU_CHOICES, default='', verbose_name='업체위치')
+    region = models.CharField(max_length=16, choices=REGION_CHOICES, default='', verbose_name='대학가, 주변대학')
+    atmosphere = models.CharField(max_length=10, choices=ATMOSPHERE_CHOICES, default='', verbose_name='매장 분위기')
 
 
     def __str__(self):
