@@ -20,6 +20,7 @@ body {
     width: 100%;
     text-align: center;
     background: url('http://placehold.it/1900x500') no-repeat center center scroll;
+    filter:brightness(40%);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -39,11 +40,13 @@ body {
     width: 100%;
     background: url('http://placehold.it/700x200') no-repeat center center;
     text-align: center;
+    opacity: 0.8;
     padding:9% 0;
     margin: 10px 0;
 }
+
 .picture_search:hover {
-    opacity: 0.8;
+    opacity:1;
 }
 
 

@@ -2,14 +2,45 @@
 {% load staticfiles %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'index.css' %}" />
-    <style>
-        .text-align-center {
-            text-align: center;
-        }
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+<style>
+    .text-align-center {
+        text-align: center;
+    }
 
-    </style>
+    .page-header {
+        padding-bottom: 9px;
+        margin: 75px 0 20px;
+        border: none;
+    }
+    .header-image {
+    background: url("{% static 'img/index_banner.jpg' %}") center center scroll;
+    }
 
+    #pop1 {
+        background: url("{% static 'img/popular1.jpg' %}") no-repeat center center;
+    }
+
+    #pop2 {
+        background: url("{% static 'img/popular2.jpg' %}") no-repeat center center;
+    }
+
+    #pop3 {
+        background: url("{% static 'img/popular3.jpg' %}") no-repeat center center;
+    }
+
+    #pop4 {
+        background: url("{% static 'img/popular4.jpg' %}") no-repeat center center;
+    }
+
+    #pop5 {
+        background: url("{% static 'img/popular5.jpg' %}") no-repeat center center;
+    }
+
+    #pop6 {
+        background: url("{% static 'img/popular6.jpg' %}") no-repeat center center;
+    }
+</style>
 {% endblock %}
 
 
@@ -30,18 +61,18 @@
     <div class="container">
 
 
-        <!-- Portfolio Section -->
+        <!-- Popular Section -->
         <div class="row">
             <div class="col-lg-12">
                 <h2 class="page-header text-align-center">
-                    적당한 장소를 찾아보세요.
+                    적당한 장소를 찾아보세요
                 </h2>
             </div>
 
 
             <div class="col-sm-6">
                 <a href="{% url 'store_list' %}?where=홍대/신촌&howmany=&direct_search=">
-                    <div class="picture_search">
+                    <div id="pop1" class="picture_search">
                         <h3>신촌 / 홍대</h3>
                     </div>
                 </a>
@@ -49,21 +80,21 @@
 
             <div class="col-sm-6">
                 <a href="{% url 'store_list' %}?where=&howmany=200명 이상&direct_search=">
-                    <div class="picture_search">
+                    <div id="pop2" class="picture_search">
                         <h3>대규모 일일호프</h3>
                     </div>
                 </a>
             </div>
             <div class="col-sm-6">
                 <a href="{% url 'store_list' %}?where=&howmany=&direct_search=">
-                    <div class="picture_search">
+                    <div id="pop3" class="picture_search">
                         <h3>좋은 분배조건</h3>
                     </div>
                 </a>
             </div>
             <div class="col-sm-6">
                 <a href="{% url 'store_list' %}?where=서울대&howmany=&direct_search=">
-                    <div class="picture_search">
+                    <div id="pop4" class="picture_search">
                         <h3>서울대입구</h3>
                     </div>
                 </a>
@@ -71,7 +102,7 @@
 
             <div class="col-sm-6">
                 <a href="{% url 'store_list' %}?where=혜화/대학로&howmany=&direct_search=">
-                    <div class="picture_search">
+                    <div id="pop5" class="picture_search">
                         <h3>대학로/안암</h3>
                     </div>
                 </a>
@@ -79,7 +110,7 @@
 
             <div class="col-sm-6">
                 <a href="{% url 'store_list' %}?where=&howmany=&direct_search=">
-                    <div class="picture_search">
+                    <div id="pop6" class="picture_search">
                         <h3>기본대관료가 싼 곳</h3>
                     </div>
                 </a>
