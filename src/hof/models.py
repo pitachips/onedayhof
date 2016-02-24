@@ -80,7 +80,7 @@ class Store(models.Model):
     longitude = models.FloatField(null=True)
 
     menu = models.TextField(blank=True, default='', verbose_name='주요 메뉴와 가격')
-    rating = models.PositiveSmallIntegerField(blank=True, default=0)
+    rating = models.FloatField(blank=True, default=0)
     n_review = models.PositiveSmallIntegerField(default=0, blank=True)
     description = models.TextField(blank=True, default='', verbose_name='상세조건 및 기타')
     is_active = models.BooleanField(default=False)
@@ -97,9 +97,15 @@ class Store(models.Model):
     def __str__(self):
         return self.name
 
+    def update_store_rating_by_review_delete(self, rating):
+        temp_total = self.rating * self.n_review - rating
+        self.n_review -= 1
+        self.rating = temp_total / self.n_review
+        self.save()
+
 
 class StoreImage(models.Model):
-    store = models.ForeignKey(Store, default=None)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, default=None)
     image = models.ImageField(upload_to=random_name_upload_to, verbose_name='사진 업로드')
 
 
@@ -125,7 +131,11 @@ class Review(models.Model):
     def __str__(self):
         return self.content
 
+    def delete(self, *args, **kwargs):
+        self.store.update_store_rating_by_review_delete(self.rating)
+        return super(Review, self).delete(*args, **kwargs)
+
 
 class ReviewImage(models.Model):
-    review = models.ForeignKey(Review, default=None)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, default=None)
     image = models.ImageField(blank=True, null=True, upload_to=random_name_upload_to, verbose_name='사진 업로드')

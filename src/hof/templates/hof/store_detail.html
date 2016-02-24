@@ -81,8 +81,8 @@ footer {
         <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h1 style="display: inline-block;">{{ store.name }}</h1>
-                <h4 style="display: inline-block;">{{ store.get_atmosphere_display }}</h4>
+                <h1 style="display: inline-block;">{{ store.name }} </h1>
+                <h4 style="display: inline-block;">{{ store.get_atmosphere_display }} <span class="ratings" value="{{ store.rating }}" style="color:#E66650"></span></h4>
                 <h5>{{ store.address }}</h5>
                 <p>
                 <a class="btn btn-xs btn-primary" href="{% url 'store_list' %}?where={{ store.gu }}&howmany=&direct_search=">{{ store.get_gu_display }}</a>
@@ -427,7 +427,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 
     $('.ratings').each(function(){
-      numStars = $(this).attr('value');
+      numStars = Math.round($(this).attr('value'));
       displayedStars = "";
       for (i=0; i<numStars; i++) {
         displayedStars += "<i class='fa fa-star'></i>";

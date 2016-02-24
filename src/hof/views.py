@@ -232,17 +232,17 @@ def store_delete(request, pk):
 @login_required
 def review_new(request, store_id):
     store=Store.objects.get(pk=store_id)
-    if (request.method =="POST"):
-        form=ReviewForm(request.POST, request.FILES)
+    if (request.method == "POST"):
+        form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             review = form.save(commit=False)
             review.store = store
             review.author = request.user
             review.created_at = timezone.now()
             review.save()
-            store.rating = store.rating*store.n_review + review.rating
+            temp_total = store.rating*store.n_review + review.rating
             store.n_review += 1
-            store.rating = store.rating/store.n_review
+            store.rating = temp_total/store.n_review
             store.save()
             return redirect(store_detail, pk=store_id)
     else:
@@ -282,9 +282,6 @@ def review_delete(request, store_id, review_id):
         messages.warning(request, '리뷰 작성자만 삭제할 수 있습니다.')
         return redirect('store_detail', review.store.pk)
     else:
-        store.rating = (store.rating*(store.n_review) - review.rating)/(store.n_review-1)
-        store.n_review -= 1
-        store.save()
         review.delete()
         messages.success(request, '리뷰를 삭제했습니다.')
         return redirect('store_detail', review.store.pk)
