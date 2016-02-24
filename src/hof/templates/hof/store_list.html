@@ -94,9 +94,18 @@
                             </a>
                         </div>
                         <div class="col-md-7">
-                            <h3>{{ store.name }}</h3>
-                            <h4>{{ store.atmosphere }}</h4>
-                            <p>{{ store.description }}</p>
+                            <div class="caption">
+                                <h4 class="pull-right">{{ store.basic_fee }}원~</h4>
+                                <h4><a href="{% url 'store_detail' pk=store.pk %}">{{ store.name }}</a>
+                                </h4>
+                                <p>
+                                    <button class="btn btn-xs btn-default">{{ store.get_gu_display }}</button >
+                                    <button class="btn btn-xs btn-default">{{ store.get_region_display }}</button >
+                                    <button class="btn btn-xs btn-default">{{ store.max_guest }}</button >
+                                    <button class="btn btn-xs btn-default">{{ store.get_atmosphere_display }}</button>
+                                </p>
+                                <p>{{ store.description }}</p>
+                            </div>
                         </div>
                     </div>
                     <!-- /.row -->
