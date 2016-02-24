@@ -1,20 +1,8 @@
-/*!
- * Start Bootstrap - Modern Business HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
 
-/* Global Styles */
-
-html,
-body {
-    height: 100%;
-}
 
 body {
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
-
 .header-image {
     display: block;
     width: 100%;
@@ -30,12 +18,18 @@ body {
 .headline {
     padding: 8% 0 8% 0;
 }
-
-.headline h1 {
+.headline {
     opacity: 0.9;
 }
 
+.page-header {
+    padding-bottom: 9px;
+    margin: 75px 0 20px;
+    border: none;
+}
 
+
+/* popular place picture search */
 .picture_search {
     width: 100%;
     background: url('http://placehold.it/700x200') no-repeat center center;
@@ -44,79 +38,38 @@ body {
     padding:9% 0;
     margin: 10px 0;
 }
-
 .picture_search:hover {
     opacity:1;
 }
 
 
-
+/* recommended_store style */
 .caption {
     height: 130px;
     overflow: hidden;
 }
-
-
 .caption h4 {
     white-space: nowrap;
 }
-
 .thumbnail img {
     width: 100%;
 }
-
 .thumbnail-borderless {
     border:none;
 }
-
-
-.ratings {
-    padding-right: 10px;
-    padding-left: 10px;
-    color: #d17581;
-}
-
 .thumbnail {
     padding: 0;
 }
-
 .thumbnail .caption-full {
     padding: 9px;
     color: #333;
 }
 
 
-
-
 /* 404 Page Styles */
-
 .error-404 {
     font-size: 100px;
 }
 
-/* Pricing Page Styles */
-
-.price {
-    display: block;
-    font-size: 50px;
-    line-height: 50px;
-}
-
-.price sup {
-    top: -20px;
-    left: 2px;
-    font-size: 20px;
-}
-
-.period {
-    display: block;
-    font-style: italic;
-}
-
-/* Footer Styles */
-
-footer {
-    margin: 50px 0;
-}
 
 

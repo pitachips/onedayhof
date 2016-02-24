@@ -14,24 +14,10 @@
 </form>
 
 
-<!--
-<div id="region_list" style="display:none;">
-{% for region in region_list %}
-    <button class="btn btn-xs btn-defualt region_choice" value="{{ region }}">{{ region }}</button>
-{% endfor %}
-</div>
-
-
-<div id="max_guest_list" class="_drop_content" style="display:none;">
-{% for max_guest in max_guest_list %}
-    <button class="btn btn-xs btn-defualt max_guest_choice" value="{{ max_guest }}">{{ max_guest }}</button>
-{% endfor %}
-</div>
- -->
-
 
 
   <!-- Modal -->
+
 <div class="modal search-modal" id="whereChoiceModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
@@ -64,3 +50,34 @@
       </div>
     </div>
   </div>
+
+
+
+{% block script %}
+<script>
+$(document).ready(function(){
+    $("#where").focusin(function(){
+        $("#whereChoiceModal").modal("show");
+    });
+
+    $('.region_choice').click(function(){
+        var regionChoice = $(this).val();
+        $('#where').val(regionChoice);
+        $("#whereChoiceModal").modal("hide");
+    });
+
+    $("#howmany").focusin(function(){
+        $("#howmanyChoiceModal").modal("show");
+    });
+
+    $('.max_guest_choice').click(function(){
+        var maxGuestChoice = $(this).val();
+        $('#howmany').val(maxGuestChoice);
+        $("#howmanyChoiceModal").modal("hide");
+    });
+
+});
+
+</script>
+
+{% endblock %}

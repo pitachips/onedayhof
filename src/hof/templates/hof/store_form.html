@@ -3,8 +3,7 @@
 {% load bootstrap3 %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'store_form.css' %}" />
-    <style type="text/css">
+<style>
     .radio {
         display: inline-block;
         border-radius: 3px;
@@ -17,7 +16,7 @@
     .radio label {
         padding:5px;
     }
-    </style>
+</style>
 {% endblock %}
 
 
@@ -51,6 +50,21 @@
 <script>
 $(document).ready(function(){
 
+    // 업체 정보 수정시 tab color 세팅
+    $('input:checked').parent().css('background-color', '#aaa');
+
+    // 인터랙티브 tab color
+    function selectedRadioColor(radioInput){
+        $(radioInput).on('change', function() {
+        $(radioInput).parent().css('background-color', 'white');
+        $(this).parent().css('background-color', '#aaa');
+        });
+    };
+    selectedRadioColor('#id_gu input');
+    selectedRadioColor('#id_region input');
+    selectedRadioColor('#id_atmosphere input');
+
+    // 지도검색 자동완성
     var address = $('#id_address').val();
     $('#map_search').children('input').val(address);
 
@@ -59,22 +73,7 @@ $(document).ready(function(){
         $(this).val(address);
         alert('검색 버튼을 꼭 눌러서 확인해주세요');
     });
-
-    $('input:checked').parent().css('background-color', '#aaa');
-
-    function selectedRadioColor(radioInput){
-        $(radioInput).on('change', function() {
-        $(radioInput).parent().css('background-color', 'white');
-        $(this).parent().css('background-color', '#aaa');
-        });
-    };
-
-    selectedRadioColor('#id_gu input');
-    selectedRadioColor('#id_region input');
-    selectedRadioColor('#id_atmosphere input');
 });
 </script>
-
-
 {% endblock %}
 

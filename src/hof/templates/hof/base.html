@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="팀 엘프">
 
     <title>Modern Business - Start Bootstrap Template</title>
 
@@ -16,40 +16,13 @@
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.6/css/bootstrap.min.css' %}" />
 
     <!-- Custom CSS -->
-
-    <style>
-      .modal .modal-header, .modal h4, .modal .close {
-          background-color: #5cb85c;
-          color:white !important;
-          text-align: center;
-          font-size: 30px;
-      }
-      .modal .modal-footer {
-          background-color: #f9f9f9;
-      }
-      .modal-content-gray {
-        background-color: #eee;
-      }
-      .search-modal {
-        top:40%;
-      }
-
-      .search-modal .modal-body {
-        padding: 10px;
-        text-align: center;
-      }
-      .modal-body .btn-sm {
-        padding: 5px 8px;
-        margin: 2px;
-      }
-  </style>
-
-
-{% block style %}
-{% endblock %}
+    <link rel="stylesheet" href="{% static 'base.css' %}" />
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+{% block style %}
+{% endblock %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -58,64 +31,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
-<script src="{% static 'jquery-1.12.0.js' %}"></script>
-
-<script>
-$(document).ready(function(){
-    $("#loginBtn").click(function(){
-        $("#loginModal").modal();
-    });
-});
-
-</script>
-
-
-<script>
-$(document).ready(function(){
-    $("#where").focusin(function(){
-        $("#whereChoiceModal").modal();
-    });
-
-    $('.region_choice').click(function(){
-        var regionChoice = $(this).val();
-        $('#where').val(regionChoice);
-        $("#whereChoiceModal").modal("hide");
-    });
-
-    $("#howmany").focusin(function(){
-        $("#howmanyChoiceModal").modal();
-    });
-
-    $('.max_guest_choice').click(function(){
-        var maxGuestChoice = $(this).val();
-        $('#howmany').val(maxGuestChoice);
-        $("#howmanyChoiceModal").modal("hide");
-    });
-
-});
-
-</script>
-
-<script>
-
-// $(document).ready(function(){
-
-//     $('.max_guest_choice').click(function(){
-//         var maxGuestChoice = $(this).val();
-//         $('#howmany').val(maxGuestChoice);
-//         $('#max_guest_list').hide();
-//     });
-
-//     $('#direct_search').focus(function(){
-//         $('#max_guest_list').hide();
-//         $('#region_list').hide();
-//     })
-
-// });
-
-</script>
-
+    <script src="{% static 'jquery-1.12.0.js' %}"></script>
 
 {% block headjs %}
 {% endblock %}
@@ -164,6 +80,10 @@ $(document).ready(function(){
 
 {% block js %}
 {% endblock %}
+
+
+
+
 
 </body>
 

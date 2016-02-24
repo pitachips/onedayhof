@@ -1,70 +1,18 @@
 {% extends 'hof/base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
-{% load i18n %}
+
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'woothemes-FlexSlider-9a419a0/flexslider.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'store_detail.css' %}" />
-<style>
-.navbar-form, .text-align-center {
-        text-align: center;
-    }
-#top-bar {
-    background-color: #444;
-    color:#ccc;
-}
-
-.thumbnail img {
-    width: 100%;
-}
-
-
-.thumbnail {
-    padding: 0;
-}
-
-.thumbnail .caption-full {
-    padding: 9px;
-    color: #333;
-}
-
-footer {
-    margin: 50px 0;
-}
-
-.flexslider {
-    margin: 0 0 30px;
-}
-
-.flex-viewport {
-    max-height: 400px;
-}
-
-.flex-control-thumbs li {
-    width: 16.6666%;
-    max-height: 100px;
-}
-
-.flex-direction-nav a {
-    top: 41%;
-}
-
-.slides img {
-    max-height: 400px;
-    margin: auto;
-    max-width: 100%;
-}
-
-</style>
-
+    <link rel="stylesheet" href="{% static 'woothemes-FlexSlider-9a419a0/flexslider.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'store_detail.css' %}" />
 {% endblock %}
 
 
 {% block headjs %}
     <script src="{% static 'woothemes-FlexSlider-9a419a0/jquery.flexslider-min.js' %}"></script>
-
 {% endblock %}
+
 
 {% block navbar %}
     {% include 'hof/navbar2.html' %}
@@ -72,7 +20,6 @@ footer {
 
 
 {% block content %}
-
 <!-- Page Content -->
 
 <!--업체정보 summary-->
@@ -218,10 +165,6 @@ footer {
 
 
         <!-- Blog Sidebar Widgets Column -->
-
-
-
-
         <div class="col-md-4">
 
             <div class="well well-sm">
@@ -358,19 +301,33 @@ footer {
     <!-- /.row -->
 </div>
 <!-- /.container -->
-
-
-
-
-
-
-
 {% endblock %}
 
 
 
 {% block js %}
 <script>
+    $(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+  });
+});
+
+</script>
+
+
+<script>
+$(document).ready(function(){
+
+});
+</script>
+
+<script>
+$(document).ready(function(){
+
+
+    // 구글지도
     var map;
 
     function initMap() {
@@ -387,15 +344,11 @@ footer {
         map: map,
         title: 'Hello World!'
         });
-    }
-</script>
+    };
 
-<script>
-$(document).ready(function(){
+    // 즐겨찾기 추가/삭제 기능
     $(".favor").click(function() {
         var url = $(this).attr("href");
-        console.log($(this));
-
         if ( $(this).val() == 1 ) {
             if (confirm("즐겨찾기에 추가합니다.")) {
                 $.ajax({
@@ -412,32 +365,29 @@ $(document).ready(function(){
             $.ajax({
                     url: url,
                     method: "GET"
-                }).done(function() {
-                    $('.favor').removeClass('btn-warning').addClass('btn-default')
-                        .text('찜 하기')
-                        .val('1')
-                        .attr("href", "{% url 'favorite_this_store' store_id=store.pk flag='1' from_fav_list='False' %}");
-                });
-            };
-        });
+            }).done(function() {
+                $('.favor').removeClass('btn-warning').addClass('btn-default')
+                    .text('찜 하기')
+                    .val('1')
+                    .attr("href", "{% url 'favorite_this_store' store_id=store.pk flag='1' from_fav_list='False' %}");
+            });
+        };
     });
-</script>
 
-<script>
-$(document).ready(function(){
-
+    // 별점 보여주기
     $('.ratings').each(function(){
-      numStars = Math.round($(this).attr('value'));
-      displayedStars = "";
-      for (i=0; i<numStars; i++) {
-        displayedStars += "<i class='fa fa-star'></i>";
-      };
-      for (i=0; i < 5-numStars; i++){
-        displayedStars += "<i class='fa fa-star-o'></i>";
-      };
-      $(this).html(displayedStars);
+        numStars = Math.round($(this).attr('value'));
+        displayedStars = "";
+        for (i=0; i<numStars; i++) {
+            displayedStars += "<i class='fa fa-star'></i>";
+        };
+        for (i=0; i < 5-numStars; i++){
+            displayedStars += "<i class='fa fa-star-o'></i>";
+        };
+        $(this).html(displayedStars);
     });
 
+    //별점 매기기
     $('.rating').children('i').click(function(){
         var passedStarValue = $(this).attr("value");
         $(this).siblings().removeClass('selected');
@@ -454,37 +404,18 @@ $(document).ready(function(){
 
         $('#id_rating').val(passedStarValue);
     });
-});
-</script>
 
-<script type="text/javascript">
-    $(window).load(function() {
-  $('.flexslider').flexslider({
-    animation: "slide",
-    controlNav: "thumbnails"
-  });
-});
-
-</script>
-
-<script>
-$(document).ready(function(){
+    // 리뷰 세이프삭제
     $('.review_delete').click(function(){
         if(confirm('정말로 지우시겠습니까?')){
             return true;
         };
         return false;
-    })
+    });
 });
 </script>
-
-
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?region=KO&callback=initMap" async defer></script>
 
 {% endblock %}
-
-
-
-
 

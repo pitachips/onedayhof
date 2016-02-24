@@ -69,21 +69,8 @@
                     </div>
                     <input href="{% url 'store_list' %}?where={{ query_where }}&howmany={{ query_howmany }}&direct_search={{ query_direct_search }}" type="submit" class="btn btn-default" value="검색" />
                 </form>
-<!--                 <div id="region_list" style="display: none;">
-                {% for region in region_list %}
-                    <button class="btn btn-xs btn-defualt region_choice" id="region-{{ forloop.counter }}" class="" value="{{ region }}">{{ region }}</button>
-                {% endfor %}
-                </div>
-                <div id="max_guest_list" style="display:none;">
-                {% for max_guest in max_guest_list %}
-                    <button class="btn btn-xs btn-defualt max_guest_choice" id="max_guest-{{ forloop.counter }}" class="" value="{{ max_guest }}">{{ max_guest }}</button>
-                {% endfor %}
-                </div> -->
             </div>
             <!-- /.navbar-collapse -->
-
-
-
         </div>
         <!-- /.container -->
     </nav>

@@ -1,10 +1,30 @@
-/*!
- * Start Bootstrap - Shop Item HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
 
 body {
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+#top-bar {
+    background-color: #444;
+    color:#ccc;
+}
+
+
+/* customized flexslider */
+.flexslider {
+    margin: 0 0 30px;
+}
+.flex-viewport {
+    max-height: 400px;
+}
+.flex-control-thumbs li {
+    width: 16.6666%;
+    max-height: 100px;
+}
+.flex-direction-nav a {
+    top: 41%;
+}
+.slides img {
+    max-height: 400px;
+    margin: auto;
+    max-width: 100%;
+}

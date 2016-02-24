@@ -4,7 +4,14 @@
 
 {% block style %}
     <link href="{% static 'signup_choice.css' %}" rel="stylesheet">
-
+<style>
+    body {
+        padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    .hero-feature {
+        margin-bottom: 30px;
+    }
+</style>
 {% endblock %}
 
 
@@ -33,7 +40,6 @@
                 </div>
             </div>
 
-
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
                 <div class="caption">
@@ -45,7 +51,6 @@
             </div>
         </div>
         <!-- /.row -->
-
 
     </div>
     <!-- /.container -->

@@ -2,12 +2,13 @@
 {% load staticfiles %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'store_list.css' %}" />
 <style>
-    .navbar-form, .text-align-center {
-        text-align: center;
+
+    body {
+        padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }
 
+/* index_banner style */
     #myCarousel .img-responsive {
         border-radius: 5px;
         opacity: 0.7;
@@ -17,11 +18,9 @@
     padding: 0px;
     margin-top: -38px;
     }
-
     .carousel-caption h1 {
         opacity: 1;
     }
-
     .carousel-inner {
         height:285px;
         width:1140px;
@@ -33,29 +32,20 @@
 </style>
 {% endblock %}
 
+
 {% block navbar %}
     {% include 'hof/navbar2.html' %}
 {% endblock %}
 
 
 {% block content %}
-
-
 <!-- Page Content -->
     <div class="container">
 
         <!-- Carousel -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-      <!-- Indicators -->
-<!--       <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol> -->
-
       <div class="carousel-inner" role="listbox">
-
         <div class="item active">
           <img class="img-responsive first-slide" src="{% static 'img/list_banner1.jpg' %}" alt="First slide">
           <div class="container">
@@ -64,7 +54,6 @@
             </div>
           </div>
         </div>
-
         <div class="item">
           <img class="img-responsive second-slide" src="{% static 'img/list_banner2.jpg' %}" alt="Second slide">
           <div class="container">
@@ -73,7 +62,6 @@
             </div>
           </div>
         </div>
-
         <div class="item">
           <img class="img-responsive" class="third-slide" src="{% static 'img/list_banner3.jpg' %}" alt="Third slide">
           <div class="container">
@@ -89,7 +77,6 @@
 
         <!-- Page Heading -->
         <div class="row">
-
             <div class="col-md-8">
                 {% for store in stores %}
                     <div class="row">
@@ -128,15 +115,13 @@
                             <a href="?page={{ stores.previous_page_number }}&where={{ request.GET.where }}&what={{ request.GET.what }}">previous</a>
                         {% endif %}
                         <span class="current">
-                            Page {{ stores.number }} of {{ stores.paginator.num_pages }}.
+                            전체 {{ stores.paginator.num_pages }} 페이지 중 {{ stores.number }} 페이지
                         </span>
                         {% if stores.has_next %}
                             <a href="?page={{ stores.next_page_number }}&where={{ request.GET.where }}&what={{ request.GET.what }}">next</a>
                         {% endif %}
                     </span>
                 </div>
-
-
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
@@ -223,9 +208,6 @@
                 </div>
                 <br />
 
-
-
-
                 <!-- 최근 검색 스토어-->
                 <div class="well well-sm">
                 최근 검색한 호프
@@ -266,9 +248,6 @@
                     </div>
                 </div>
 
-
-
-
             </div>
         </div>
         <!-- /.row -->
@@ -276,11 +255,3 @@
     <!-- /.container -->
 
 {% endblock %}
-
-
-
-
-
-
-----------
-
