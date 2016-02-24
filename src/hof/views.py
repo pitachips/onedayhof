@@ -24,7 +24,6 @@ def index(request):
 
     index_page_recommended_store_list = []
     for i in range(1, 10):
-        print(i)
         try:
             store = Store.objects.get(is_index_page_recommended_store=i);
         except ObjectDoesNotExist:

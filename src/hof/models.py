@@ -1,8 +1,10 @@
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.files import File
 from django.db import models
+from django.db.models.signals import pre_save
 
-from onedayhof.utils import random_name_upload_to
+from onedayhof.utils import random_name_upload_to, thumbnail
 
 
 # this is important # CHOICES 향후 추가 필요함!
@@ -44,7 +46,7 @@ GU_CHOICES = (
 )
 
 REGION_CHOICES = (
-    ('건대/강변', '건대/강변'),
+    ('건대(강변)', '건대(강변)'),
     ('교대/강남', '교대/강남'),
     ('구로/영등포', '구로/영등포'),
     ('사당/이수', '사당/이수'),
@@ -101,6 +103,17 @@ class Store(models.Model):
 class StoreImage(models.Model):
     store = models.ForeignKey(Store, default=None)
     image = models.ImageField(upload_to=random_name_upload_to, verbose_name='사진 업로드')
+
+
+def pre_on_storeimage_save(sender, **kwargs):
+    store_image = kwargs['instance']
+    if store_image.image:
+        max_width = 800
+        if store_image.image.width > max_width or store_image.image.height > max_width:
+            processed_file = thumbnail(store_image.image.file, max_width, max_width)
+            store_image.image.save(store_image.image.name, File(processed_file))
+
+pre_save.connect(pre_on_storeimage_save, sender=StoreImage)
 
 
 
